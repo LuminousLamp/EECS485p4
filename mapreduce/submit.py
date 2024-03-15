@@ -91,7 +91,7 @@ def main(
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect((host, port))
-            sock.sendall(str.encode(message))
+            # sock.sendall(str.encode(message))
     except socket.error as err:
         sys.exit(f"Failed to send message to Manager: {err}")
 

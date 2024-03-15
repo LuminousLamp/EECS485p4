@@ -1,0 +1,2 @@
+Worker:6002 [INFO] Starting worker host=localhost port=6002 pwd=/Users/led/Documents/EECS485p4
+Worker:6002 [INFO] manager_host=localhost manager_port=6000

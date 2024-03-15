@@ -1,0 +1,84 @@
+#!/bin/bash
+#
+# lscount
+#
+# List files and folders, followed by a count
+
+# Stop on errors, print commands
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -Eeuo pipefail
+set -x
+
+# Function to check if a mapreduce manager is running
+function is_manager_running() {
+    pgrep -f mapreduce-manager &> /dev/null
+}
+
+# Function to check if a mapreduce manager is running
+function is_worker_running() {
+    pgrep -f mapreduce-worker &> /dev/null
+}
+
+function start(){
+    # Check if a manager or worker is already running
+    if is_manager_running || is_worker_running; then
+        echo "A manager or worker is already running."
+        exit 1
+    fi
+    # Start the manager and workers
+    mkdir -p var/log
+    rm -f var/log/manager.log var/log/worker-6002.log var/log/worker-6001.log
+    mapreduce-manager --host localhost --port 6000 --logfile var/log/manager.log &
+    sleep 2
+    mapreduce-worker --host localhost --port 6001 --manager-host localhost --manager-port 6000 --logfile var/log/worker-6001.log &
+    mapreduce-worker --host localhost --port 6002 --manager-host localhost --manager-port 6000 --logfile var/log/worker-6002.log &
+}
+
+function stop(){
+    # Stop the manager and workers
+    mapreduce-submit --shutdown --host localhost --port 6000 || true
+    sleep 2  # give the Manager time to receive signal and send to Workers
+    # kill the manager and workers
+    if is_manager_running; then
+        echo "killing mapreduce manager ..."
+        pkill -f mapreduce-manager || true
+    fi
+    if is_worker_running; then
+        echo "killing mapreduce worker ..."
+        pkill -f mapreduce-worker || true
+    fi
+}
+
+
+# Check the argument and perform the corresponding action
+# start
+if [ "$1" = "start" ]; then
+    start
+# stop
+elif [ "$1" = "stop" ]; then
+    stop
+# status
+elif [ "$1" = "status" ]; then
+    # Check if the manager is running
+    if is_manager_running; then
+        echo "Manager is running."
+    else
+        echo "Manager is not running."
+        exit 1
+    fi
+
+    # Check if any workers are running
+    if is_worker_running; then
+        echo "At least one worker is running."
+        exit 0
+    else
+        echo "No workers are running."
+        exit 1
+    fi
+# restart
+elif [ "$1" = "restart"]; then
+    stop
+    start
+else
+    echo "Invalid argument. Please provide either 'start', 'stop', or 'status'."
+fi

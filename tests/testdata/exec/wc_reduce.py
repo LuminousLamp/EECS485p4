@@ -11,8 +11,6 @@ import collections
 
 def reduce_one_group(key, group):
     """Reduce one group."""
-    
-    # assert False, "IMPLEMENT ME"
 
 
 def keyfunc(line):
