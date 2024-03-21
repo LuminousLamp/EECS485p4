@@ -19,6 +19,22 @@ class Job:
         self.num_mappers: int = num_mappers
         self.num_reducers: int = num_reducers
 
+        self.task_list: dict[int, dict] = {}
+
+    def register_task_list(self, task_id: int, input_files: list):
+        task_info = {
+            "status": "unfinished",
+            "input_files": input_files
+        }
+        self.task_list[task_id] = task_info
+
+    def is_all_tasks_completed(self):
+        for task_id, task_info in self.task_list.items():
+            if task_info["status"] != "finished":
+                return False
+        return True
+        
+
 
 class M_info:
     def __init__(self) -> None:
@@ -27,10 +43,9 @@ class M_info:
 
 
 class W_info:
-    def __init__(self, host:str, port:int, id:int) -> None:
+    def __init__(self, host:str, port:int) -> None:
         self.host: str = host
         self.port: int = port
-        self.id: int = id
         self.status: int = STATUS_READY
 
 

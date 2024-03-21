@@ -49,7 +49,7 @@ class Worker:
                     clientsocket, address = sock.accept()
                 except socket.timeout:
                     continue
-                LOGGER.info("worker receive massage")
+                
                 try:
                     message_dict = tcp_receive_json(clientsocket)
                 except:
@@ -60,12 +60,15 @@ class Worker:
                     message_type = message_dict["message_type"]
                 except KeyError:
                     continue
-
+                
+                LOGGER.info(f"worker receive massage, type {message_type}")
                 if message_type == "shutdown":
                     self.shutdown(sock)
                 elif message_type == "register_ack":
                     thread_sendheartbeat = threading.Thread(target=self.send_heartbeat)
                     thread_sendheartbeat.start()
+                elif message_type == "new_map_task":
+                    pass
 
 
 
@@ -85,19 +88,21 @@ class Worker:
         LOGGER.info("worker shutdown")
         while self.status == STATUS_BUSY:
             time.sleep(0.1)
+        self.status = STATUS_SHUTDOWN
         main_sock.close()
         os._exit(0)
 
     def send_heartbeat(self):
-            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
-                while True:
-                    sock.connect((self.manager_host, self.manager_port))
-                    heartbeat_message = json.dumps({
-                        "message_type": "heartbeat",
-                    # TODO
-                    })
-                    sock.sendall(heartbeat_message.encode('utf-8'))
-                    time.sleep(1)
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+            while True:
+                sock.connect((self.manager_host, self.manager_port))
+                heartbeat_message = json.dumps({
+                    "message_type": "heartbeat",
+                    "worker_host": self.host,
+                    "worker_port": self.port
+                })
+                sock.sendall(heartbeat_message.encode('utf-8'))
+                time.sleep(1)
 
 
 

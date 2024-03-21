@@ -1,2 +1,4 @@
 Worker:6001 [INFO] Worker init: host=localhost port=6001 pwd=/Users/led/Documents/EECS485p4
 Worker:6001 [INFO] worker setup TCP
+Worker:6001 [INFO] worker register
+Worker:6001 [INFO] worker receive massage, type register_ack

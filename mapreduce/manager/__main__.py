@@ -33,11 +33,13 @@ class Manager:
 
         self.status: int = STATUS_FREE
 
-        self.num_workers: int = 0
-        self.workers: dict[int, W_info] = {}
+        self.workers: dict[tuple, W_info] = {}
+        self.workers_free: deque = deque()
 
         self.num_jobs: int = 0
         self.job_queue: deque = deque()
+        self.curr_job: Job = None
+        
 
 
         # start
@@ -66,15 +68,15 @@ class Manager:
             sock.listen()
             sock.settimeout(1)
 
-            # LOGGER.debug("manager setup TCP\n%s", json.dumps(debug_mssg, indent=2))
-
             while True:
+                # try connection
                 try:
                     clientsocket, address = sock.accept()
+                    LOGGER.info(address)
                 except socket.timeout:
                     continue
-                LOGGER.info("manager receive message")
-
+                
+                # get message dict
                 try:
                     message_dict = tcp_receive_json(clientsocket)
                 except:
@@ -85,21 +87,25 @@ class Manager:
                     message_type = message_dict["message_type"]
                 except KeyError:
                     continue
-
-                LOGGER.info(f"message type = {message_type}")
+                
+                # execute according function
+                LOGGER.info(f"manager receive message, type {message_type}")
                 if message_type == "shutdown":
-                    self.shutdown(sock)
+                    self._shutdown(sock)
                 elif message_type == "register":
-                    self.register_worker(message_dict["worker_host"], int(message_dict["worker_port"]))
+                    self._register_worker(message_dict["worker_host"], int(message_dict["worker_port"]))
                 elif message_type == "new_manager_job":
-                    self.create_job(message_dict["input_directory"], message_dict["output_directory"], message_dict["mapper_executable"], message_dict["reducer_executable"], int(message_dict["num_mappers"]), int(message_dict["num_reducers"]),)
+                    self._create_job(message_dict["input_directory"], message_dict["output_directory"], message_dict["mapper_executable"], message_dict["reducer_executable"], int(message_dict["num_mappers"]), int(message_dict["num_reducers"]),)
+                elif message_type == "finished":
+                    self._mark_task_finished(message_dict["task_id"], message_dict["worker_host"], message_dict["worker_port"])
                 else:
                     continue
 
-    def shutdown(self, main_sock: socket):
+    def _shutdown(self, main_sock: socket):
         LOGGER.info(f"call shutdown on manager, now there is {len(self.workers)} workers")
 
-        for worker_id, worker in self.workers.items():
+        self.status = STATUS_SHUTDOWN
+        for addr, worker in self.workers.items():
             if worker.status != STATUS_DEAD:
                 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                     try:
@@ -115,87 +121,98 @@ class Manager:
         os._exit(0)
 
 
-    def register_worker(self, worker_host: str, worker_port: int):
-        LOGGER.info(f"logging worker {worker_host}, {worker_port}")
+    def _register_worker(self, worker_host: str, worker_port: int):
+        LOGGER.info(f"register worker {worker_host}, {worker_port}")
 
-        self.workers[self.num_workers] = W_info(worker_host, worker_port, self.num_workers)
+        self.workers[(worker_host, worker_port)] = W_info(worker_host, worker_port)
+        self.workers_free.append((worker_host, worker_port))
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect((worker_host, worker_port))
             registar_ack_message = json.dumps({"message_type": "register_ack"})
             sock.sendall(registar_ack_message.encode('utf-8'))
 
-        self.num_workers += 1
-
-        if self.num_workers == 1:
-            pass
-            # FIXME: After the first Worker registers with the Manager, the Manager should check the job queue (described later) if it has any work it can assign to the Worker (because a job could have arrived at the Manager before any Workers registered). If the Manager is already in the middle of a job, it should assign the Worker the next available task immediately.
-
     
-    def create_job(self, input_directory, output_directory, mapper_executable, reducer_executable, num_mappers, num_reducers):
+    def _create_job(self, input_directory, output_directory, mapper_executable, reducer_executable, num_mappers, num_reducers):
         new_job: Job = Job(self.num_jobs, input_directory, output_directory, mapper_executable, reducer_executable, num_mappers, num_reducers)
         self.job_queue.append(new_job)
 
         self.num_jobs += 1
 
+    def _mark_task_finished(self, task_id:int, worker_host: str, worker_port:int):
+        # mark the task as finished
+        self.curr_job.task_list[task_id]["status"] = "finished"
+        # worker back to ready
+        self.workers[(worker_host, worker_port)].status = STATUS_FREE
+        self.workers_free.append((worker_host, worker_port))
+
     def runjob(self):
+        """thread: run a job"""
 
         while True:
             # The Manager runs each job to completion before starting a new job.
             while self.status == STATUS_BUSY or len(self.job_queue) == 0:
                 time.sleep(0.1)
-        
-            job: Job = self.job_queue.popleft()
-            self.curr_job_id = job.id
 
-            # delete the output directory if it already exists
-            if os.path.exists(job.output_directory):
-                shutil.rmtree(job.output_directory)
-            
-            # create the output directory
-            output_dir = job.output_directory
+            # start a new job
+            self.status = STATUS_BUSY
+            self.curr_job: Job = self.job_queue.popleft()
+            LOGGER.info(f"starting to run a job: {self.curr_job.id}")
+
+            # delete the output directory if it already exists, create the output directory
+            if os.path.exists(self.curr_job.output_directory):
+                shutil.rmtree(self.curr_job.output_directory)
+            output_dir = self.curr_job.output_directory
             os.makedirs(output_dir)
 
-            prefix = f"mapreduce-shared-job{job.id:05d}-"
+            prefix = f"mapreduce-shared-job{self.curr_job.id:05d}-"
             with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
                 LOGGER.info("Created tmpdir %s", tmpdir)
-                # FIXME: Change this loop so that it runs either until shutdown 
-                # or when the job is completed.
 
                 # Sort the input files by name
-                input_files = sorted(os.listdir(job.input_directory))
+                input_files = sorted(os.listdir(self.curr_job.input_directory))
 
                 # Divide the input files into num_mappers partitions using round robin
-                partitions = [[] for _ in range(job.num_mappers)]
+                partitions = [[] for _ in range(self.curr_job.num_mappers)]
                 for i, file in enumerate(input_files):
-                    partitions[i % job.num_mappers].append(file)
+                    partitions[i % self.curr_job.num_mappers].append(file)
 
-                i = 0
-                while i < len(partitions):
-                    for worker_id, worker in self.workers.items():
-                        if worker.status == STATUS_READY:
-                            task_message = {
-                                "message_type": "new_map_task",
-                                # "task_id": task_id,
-                                "input_paths": partitions[i],
-                                "executable": job.mapper_executable,
-                                "output_directory": job.output_directory,
-                                "num_partitions": job.num_reducers
-                            }
+                # for every task
+                for task_id, partition in enumerate(partitions):
+                    # register the task on the job
+                    self.curr_job.register_task_list(task_id, partition)
 
-                            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-                                sock.connect((worker.host, worker.port))
-                                message = json.dumps(task_message)
-                                sock.sendall(message.encode('utf-8'))
-                            
-                            i += 1
+                    # wait if no workers available
+                    while len(self.workers_free) == 0:
+                        time.sleep(0.1)
+                    if self.status == STATUS_SHUTDOWN:
+                        break
                     
-                    # FIXME: if all full, what to do? how to avoid busy waiting
+                    # get an free worker, and send it the task
+                    worker_host, worker_port = self.workers_free.popleft()
+                    self.workers[(worker_host, worker_port)].status = STATUS_BUSY
+                    task_message = {
+                        "message_type": "new_map_task",
+                        "task_id": task_id,
+                        "input_paths": partition,
+                        "executable": self.curr_job.mapper_executable,
+                        "output_directory": self.curr_job.output_directory,
+                        "num_partitions": self.curr_job.num_reducers
+                    }
 
-                    
-                    
-                    
-                
-            LOGGER.info("Cleaned up tmpdir %s", tmpdir)
+                    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                        sock.connect((worker_host, worker_port))
+                        message = json.dumps(task_message)
+                        sock.sendall(message.encode('utf-8'))
+            
+                while not self.status == STATUS_SHUTDOWN or not self.curr_job.is_all_tasks_completed():
+                    time.sleep(0.1)
+            
+            # now the current job is completed
+            self.curr_job = None
+            self.status = STATUS_FREE
+            
+
+
                     
 
     def listen_heartbeat(self):
@@ -210,14 +227,13 @@ class Manager:
             while True:
                 try:
                     message_dict = udp_receive_json(sock)
-                except socket.timeout or json.JSONDecodeError:
+                except:
                     continue
-
                 
+                if (message_dict["worker_host"], message_dict["worker_port"]) not in self.workers:
+                    continue
+                # LOGGER.info(f"manager UDP receive heartbeat message")
 
-                
-
-        pass
 
     def faulttolerance(self):
         pass
