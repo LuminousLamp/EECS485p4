@@ -8,7 +8,7 @@ import click
 import mapreduce.utils
 import threading
 import socket
-from utils import *
+from mapreduce.utils.utils import *
 from collections import deque
 import shutil
 
@@ -23,18 +23,9 @@ class Manager:
     def __init__(self, host, port):
         """Construct a Manager instance and start listening for messages."""
 
-        LOGGER.info(
-            "Starting manager host=%s port=%s pwd=%s",
-            host, port, os.getcwd(),
-        )
-
-        # This is a fake message to demonstrate pretty printing with logging
-        # message_dict = {
-        #     "message_type": "register",
-        #     "worker_host": "localhost",
-        #     "worker_port": 6001,
-        # }
-        # LOGGER.debug("TCP recv\n%s", json.dumps(message_dict, indent=2))
+        
+        LOGGER.info("Manager init: host=%s port=%s pwd=%s", host, port, os.getcwd())
+        
 
         # attributes
         self.host: str = host
@@ -50,37 +41,44 @@ class Manager:
 
 
         # start
+        thread_listenmessage = threading.Thread(target=self.listen_message)
         thread_heartbeat = threading.Thread(target=self.listen_heartbeat)
         thread_runjob = threading.Thread(target=self.runjob)
         thread_faulttolerance = threading.Thread(target=self.faulttolerance)
+        thread_listenmessage.start()
         thread_heartbeat.start()
         thread_faulttolerance.start()
         thread_runjob.start()
 
-        self.listen_message()
-
+        thread_listenmessage.join()
+        thread_runjob.join()
         thread_heartbeat.join()
         thread_faulttolerance.join()
 
 
     def listen_message(self):
         """main TCP socket listening messages"""
-
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            LOGGER.info("manager setup TCP")
+
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sock.bind((self.host, self.port))
             sock.listen()
             sock.settimeout(1)
+
+            # LOGGER.debug("manager setup TCP\n%s", json.dumps(debug_mssg, indent=2))
 
             while True:
                 try:
                     clientsocket, address = sock.accept()
                 except socket.timeout:
                     continue
-            
+                LOGGER.info("manager receive message")
+
                 try:
                     message_dict = tcp_receive_json(clientsocket)
-                except json.JSONDecodeError:
+                except:
+                    LOGGER.error("message_dict not succeffsulyly received")
                     continue
 
                 try:
@@ -88,6 +86,7 @@ class Manager:
                 except KeyError:
                     continue
 
+                LOGGER.info(f"message type = {message_type}")
                 if message_type == "shutdown":
                     self.shutdown(sock)
                 elif message_type == "register":
@@ -98,10 +97,15 @@ class Manager:
                     continue
 
     def shutdown(self, main_sock: socket):
+        LOGGER.info(f"call shutdown on manager, now there is {len(self.workers)} workers")
+
         for worker_id, worker in self.workers.items():
             if worker.status != STATUS_DEAD:
                 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-                    sock.connect((worker.host, worker.port))
+                    try:
+                        sock.connect((worker.host, worker.port))
+                    except ConnectionRefusedError:
+                        continue
                     shutdown_message = json.dumps({
                         "message_type": "shutdown"
                     })
@@ -110,7 +114,10 @@ class Manager:
         main_sock.close()
         os._exit(0)
 
+
     def register_worker(self, worker_host: str, worker_port: int):
+        LOGGER.info(f"logging worker {worker_host}, {worker_port}")
+
         self.workers[self.num_workers] = W_info(worker_host, worker_port, self.num_workers)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect((worker_host, worker_port))
@@ -168,7 +175,7 @@ class Manager:
                         if worker.status == STATUS_READY:
                             task_message = {
                                 "message_type": "new_map_task",
-                                "task_id": task_id,
+                                # "task_id": task_id,
                                 "input_paths": partitions[i],
                                 "executable": job.mapper_executable,
                                 "output_directory": job.output_directory,
@@ -198,12 +205,15 @@ class Manager:
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sock.bind((self.host, self.port))
             sock.settimeout(1)
+            LOGGER.info("Manager setup UDP")
 
             while True:
                 try:
-                    message_dict = udp_receive_json(socket)
+                    message_dict = udp_receive_json(sock)
                 except socket.timeout or json.JSONDecodeError:
                     continue
+
+                
 
                 
 

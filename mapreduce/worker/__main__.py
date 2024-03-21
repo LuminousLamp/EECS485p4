@@ -5,7 +5,7 @@ import json
 import time
 import click
 import socket
-from utils import *
+from mapreduce.utils.utils import *
 import threading
 
 
@@ -17,23 +17,8 @@ class Worker:
     """A class representing a Worker node in a MapReduce cluster."""
     def __init__(self, host, port, manager_host, manager_port):
         """Construct a Worker instance and start listening for messages."""
-        LOGGER.info(
-            "Starting worker host=%s port=%s pwd=%s",
-            host, port, os.getcwd(),
-        )
-        LOGGER.info(
-            "manager_host=%s manager_port=%s",
-            manager_host, manager_port,
-        )
-
-        # This is a fake message to demonstrate pretty printing with logging
-        # message_dict = {
-        #     "message_type": "register_ack",
-        #     "worker_host": "localhost",
-        #     "worker_port": 6001,
-        # }
-        # LOGGER.debug("TCP recv\n%s", json.dumps(message_dict, indent=2))
-
+        
+        LOGGER.info("Worker init: host=%s port=%s pwd=%s", host, port, os.getcwd())
         
         self.host: str = host
         self.port: int = port
@@ -41,7 +26,10 @@ class Worker:
         self.manager_port: int = manager_port
         self.status: int = STATUS_READY
 
-        self.listen_message()
+        thread_listenmessage = threading.Thread(target=self.listen_message)
+        thread_listenmessage.start()
+
+        thread_listenmessage.join()
         
 
     def listen_message(self):
@@ -50,21 +38,22 @@ class Worker:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sock.bind((self.host, self.port))
-
+            LOGGER.info("worker setup TCP")
+            sock.listen()
             # Once a Worker is ready to listen for instructions, it should send a message
             self.register()
-            sock.listen()
             sock.settimeout(1)
 
             while True:
                 try:
                     clientsocket, address = sock.accept()
-                except sock.timeout:
+                except socket.timeout:
                     continue
-
+                LOGGER.info("worker receive massage")
                 try:
                     message_dict = tcp_receive_json(clientsocket)
-                except json.JSONDecodeError:
+                except:
+                    LOGGER.error("message_dict not succeffsulyly received")
                     continue
 
                 try:
@@ -76,11 +65,12 @@ class Worker:
                     self.shutdown(sock)
                 elif message_type == "register_ack":
                     thread_sendheartbeat = threading.Thread(target=self.send_heartbeat)
-                    self.send_heartbeat()
+                    thread_sendheartbeat.start()
 
 
 
     def register(self):
+        LOGGER.info("worker register")
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect((self.manager_host, self.manager_port))
             register_message = json.dumps({
@@ -92,14 +82,23 @@ class Worker:
             sock.sendall(register_message.encode('utf-8'))
 
     def shutdown(self, main_sock: socket):
+        LOGGER.info("worker shutdown")
         while self.status == STATUS_BUSY:
             time.sleep(0.1)
-        
         main_sock.close()
         os._exit(0)
 
-    def send_heartbeat():
-        pass
+    def send_heartbeat(self):
+            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+                while True:
+                    sock.connect((self.manager_host, self.manager_port))
+                    heartbeat_message = json.dumps({
+                        "message_type": "heartbeat",
+                    # TODO
+                    })
+                    sock.sendall(heartbeat_message.encode('utf-8'))
+                    time.sleep(1)
+
 
 
 

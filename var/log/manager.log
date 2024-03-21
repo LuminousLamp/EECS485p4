@@ -1,1 +1,12 @@
-Manager:6000 [INFO] Starting manager host=localhost port=6000 pwd=/Users/led/Documents/EECS485p4
+Manager:6000 [INFO] Manager init: host=localhost port=6000 pwd=/Users/led/Documents/EECS485p4
+Manager:6000 [INFO] manager setup TCP
+Manager:6000 [INFO] Manager setup UDP
+Manager:6000 [INFO] manager receive message
+Manager:6000 [INFO] message type = register
+Manager:6000 [INFO] logging worker localhost, 6002
+Manager:6000 [INFO] manager receive message
+Manager:6000 [INFO] message type = register
+Manager:6000 [INFO] logging worker localhost, 6001
+Manager:6000 [INFO] manager receive message
+Manager:6000 [INFO] message type = shutdown
+Manager:6000 [INFO] call shutdown on manager

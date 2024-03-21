@@ -1,2 +1,2 @@
-Worker:6001 [INFO] Starting worker host=localhost port=6001 pwd=/Users/led/Documents/EECS485p4
-Worker:6001 [INFO] manager_host=localhost manager_port=6000
+Worker:6001 [INFO] Worker init: host=localhost port=6001 pwd=/Users/led/Documents/EECS485p4
+Worker:6001 [INFO] worker setup TCP
