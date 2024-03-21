@@ -4,7 +4,9 @@ import logging
 import json
 import time
 import click
-import mapreduce.utils
+import socket
+from utils import *
+import threading
 
 
 # Configure logging
@@ -25,17 +27,80 @@ class Worker:
         )
 
         # This is a fake message to demonstrate pretty printing with logging
-        message_dict = {
-            "message_type": "register_ack",
-            "worker_host": "localhost",
-            "worker_port": 6001,
-        }
-        LOGGER.debug("TCP recv\n%s", json.dumps(message_dict, indent=2))
+        # message_dict = {
+        #     "message_type": "register_ack",
+        #     "worker_host": "localhost",
+        #     "worker_port": 6001,
+        # }
+        # LOGGER.debug("TCP recv\n%s", json.dumps(message_dict, indent=2))
 
-        # TODO: you should remove this. This is just so the program doesn't
-        # exit immediately!
-        LOGGER.debug("IMPLEMENT ME!")
-        time.sleep(120)
+        
+        self.host: str = host
+        self.port: int = port
+        self.manager_host: str = manager_host
+        self.manager_port: int = manager_port
+        self.status: int = STATUS_READY
+
+        self.listen_message()
+        
+
+    def listen_message(self):
+        """main TCP socket listening messages"""
+
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            sock.bind((self.host, self.port))
+
+            # Once a Worker is ready to listen for instructions, it should send a message
+            self.register()
+            sock.listen()
+            sock.settimeout(1)
+
+            while True:
+                try:
+                    clientsocket, address = sock.accept()
+                except sock.timeout:
+                    continue
+
+                try:
+                    message_dict = tcp_receive_json(clientsocket)
+                except json.JSONDecodeError:
+                    continue
+
+                try:
+                    message_type = message_dict["message_type"]
+                except KeyError:
+                    continue
+
+                if message_type == "shutdown":
+                    self.shutdown(sock)
+                elif message_type == "register_ack":
+                    thread_sendheartbeat = threading.Thread(target=self.send_heartbeat)
+                    self.send_heartbeat()
+
+
+
+    def register(self):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.connect((self.manager_host, self.manager_port))
+            register_message = json.dumps({
+                "message_type" : "register",
+                "worker_host" : self.host,
+                "worker_port" : self.port
+            })
+
+            sock.sendall(register_message.encode('utf-8'))
+
+    def shutdown(self, main_sock: socket):
+        while self.status == STATUS_BUSY:
+            time.sleep(0.1)
+        
+        main_sock.close()
+        os._exit(0)
+
+    def send_heartbeat():
+        pass
+
 
 
 @click.command()
