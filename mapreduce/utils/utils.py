@@ -1,6 +1,7 @@
 
 import socket
 import json
+from collections import deque
 
 
 STATUS_FREE = 0
@@ -19,30 +20,51 @@ class Job:
         self.num_mappers: int = num_mappers
         self.num_reducers: int = num_reducers
 
-        self.task_list: dict[int, dict] = {}
+        self.task_list: dict[int, Task] = {} # key: task_id, value: task_info
+        self.task_queue: deque[int] = deque() # element is task_id
 
-    def register_task(self, task_id: int):
-        task_info = {
-            "status": "unfinished",
-        }
+    def register_task(self, task_id: int, task_info: dict) -> None:
+
         assert task_id not in self.task_list
-        self.task_list[task_id] = task_info
-
-    def is_all_tasks_completed(self):
-        for task_id, task_info in self.task_list.items():
-            if task_info["status"] != "finished":
-                return False
-        return True
+        self.task_list[task_id] = Task(task_id, task_info)
+        self.task_queue.append(task_id)
     
-    def clear_task_list(self):
+    def next_task(self) -> tuple:
+        assert len(self.task_queue) > 0
+        next_task = self.task_list[self.task_queue.popleft()]
+        return next_task.task_info
+
+    def reset_task(self, task_id: int) -> None:
+        assert task_id in self.task_list
+        assert self.task_list[task_id].task_status == "unfinished"
+        assert task_id not in self.task_queue
+
+        self.task_queue.append(task_id)
+
+    def have_pending_job(self) -> bool:
+        return len(self.task_queue) > 0
+    
+    def is_all_tasks_completed(self) -> bool:
+        # print(f"there are {len(self.task_list)} tasks")
+        for task in self.task_list.values():
+            if task.task_status != "finished":
+                return False
         self.task_list.clear()
+        return True
 
     def mark_task_finished(self, task_id: int):
         assert task_id in self.task_list
-        self.task_list[task_id]["status"] = "finished"
-        
+        assert task_id not in self.task_queue
 
-class W_info:
+        self.task_list[task_id].task_status = "finished"
+
+class Task:
+    def __init__(self, task_id:int, task_info: dict) -> None:
+        self.task_id: int = task_id
+        self.task_info: dict = task_info
+        self.task_status = "unfinished"
+
+class RemoteWorker:
     def __init__(self, host:str, port:int) -> None:
         self.host: str = host
         self.port: int = port

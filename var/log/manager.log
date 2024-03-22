@@ -1,25 +1,187 @@
 Manager:6000 [INFO] Manager init: host=localhost port=6000 pwd=/Users/led/Documents/EECS485p4
 Manager:6000 [INFO] manager setup TCP
 Manager:6000 [INFO] Manager setup UDP
-Manager:6000 [INFO] ('127.0.0.1', 50111)
-Manager:6000 [INFO] manager receive message, type register
-Manager:6000 [INFO] register worker localhost, 6001
-Manager:6000 [INFO] ('127.0.0.1', 50110)
+Manager:6000 [INFO] ('127.0.0.1', 52320)
 Manager:6000 [INFO] manager receive message, type register
 Manager:6000 [INFO] register worker localhost, 6002
-Manager:6000 [INFO] ('127.0.0.1', 50114)
+Manager:6000 [INFO] ('127.0.0.1', 52321)
+Manager:6000 [INFO] manager receive message, type register
+Manager:6000 [INFO] register worker localhost, 6001
+Manager:6000 [INFO] ('127.0.0.1', 52324)
 Manager:6000 [INFO] manager receive message, type new_manager_job
 Manager:6000 [INFO] creating a new job 0
 Manager:6000 [INFO] starting to run a job: 0
-Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00000-zcshy444
-Manager:6000 [INFO] ('127.0.0.1', 50117)
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00000-iwqj5rzy
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ----------fddd----------
+Manager:6000 [INFO] ('127.0.0.1', 52327)
 Manager:6000 [INFO] manager receive message, type finished
 Manager:6000 [INFO] mark job 0 task 0 as finished
-Manager:6000 [INFO] ('127.0.0.1', 50118)
+Manager:6000 [INFO] ('127.0.0.1', 52328)
 Manager:6000 [INFO] manager receive message, type finished
 Manager:6000 [INFO] mark job 0 task 1 as finished
-Manager:6000 [INFO] manager going to assign reduce task 2, with 2 input files
-Manager:6000 [INFO] manager going to assign reduce task 3, with 2 input files
-Manager:6000 [INFO] ('127.0.0.1', 50121)
+Manager:6000 [INFO] manager going to assign reduce task 0, with 2 input files
+Manager:6000 [INFO] manager going to assign reduce task 1, with 2 input files
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ('127.0.0.1', 52331)
 Manager:6000 [INFO] manager receive message, type finished
-Manager:6000 [INFO] mark job 0 task 3 as finished
+Manager:6000 [INFO] mark job 0 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52332)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 0 task 1 as finished
+Manager:6000 [INFO] job 0 finished
+Manager:6000 [INFO] ('127.0.0.1', 52333)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 1
+Manager:6000 [INFO] starting to run a job: 1
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00001-eiorzw06
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ----------fddd----------
+Manager:6000 [INFO] ('127.0.0.1', 52336)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 1 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52337)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 1 task 1 as finished
+Manager:6000 [INFO] manager going to assign reduce task 0, with 2 input files
+Manager:6000 [INFO] manager going to assign reduce task 1, with 2 input files
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ('127.0.0.1', 52340)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 1 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52341)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 1 task 1 as finished
+Manager:6000 [INFO] job 1 finished
+Manager:6000 [INFO] ('127.0.0.1', 52342)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 2
+Manager:6000 [INFO] starting to run a job: 2
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00002-cdv4oozl
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ----------fddd----------
+Manager:6000 [INFO] ('127.0.0.1', 52345)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 2 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52346)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 2 task 0 as finished
+Manager:6000 [INFO] manager going to assign reduce task 0, with 2 input files
+Manager:6000 [INFO] manager going to assign reduce task 1, with 2 input files
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ('127.0.0.1', 52350)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 2 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52349)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 2 task 0 as finished
+Manager:6000 [INFO] job 2 finished
+Manager:6000 [INFO] ('127.0.0.1', 52351)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 3
+Manager:6000 [INFO] starting to run a job: 3
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00003-3m6o3jhv
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ----------fddd----------
+Manager:6000 [INFO] ('127.0.0.1', 52354)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 3 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52355)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 3 task 1 as finished
+Manager:6000 [INFO] manager going to assign reduce task 0, with 2 input files
+Manager:6000 [INFO] manager going to assign reduce task 1, with 2 input files
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ('127.0.0.1', 52358)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 3 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52359)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 3 task 1 as finished
+Manager:6000 [INFO] job 3 finished
+Manager:6000 [INFO] ('127.0.0.1', 52360)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 4
+Manager:6000 [INFO] starting to run a job: 4
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00004-uqkt5osx
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ----------fddd----------
+Manager:6000 [INFO] ('127.0.0.1', 52363)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 4 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52364)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 4 task 1 as finished
+Manager:6000 [INFO] manager going to assign reduce task 0, with 2 input files
+Manager:6000 [INFO] manager going to assign reduce task 1, with 2 input files
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ('127.0.0.1', 52368)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 4 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52367)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 4 task 0 as finished
+Manager:6000 [INFO] job 4 finished
+Manager:6000 [INFO] ('127.0.0.1', 52369)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 5
+Manager:6000 [INFO] starting to run a job: 5
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00005-trvw8nbp
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ----------fddd----------
+Manager:6000 [INFO] ('127.0.0.1', 52373)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 5 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52372)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 5 task 1 as finished
+Manager:6000 [INFO] manager going to assign reduce task 0, with 2 input files
+Manager:6000 [INFO] manager going to assign reduce task 1, with 2 input files
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ('127.0.0.1', 52377)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 5 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52376)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 5 task 1 as finished
+Manager:6000 [INFO] job 5 finished
+Manager:6000 [INFO] ('127.0.0.1', 52378)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 6
+Manager:6000 [INFO] starting to run a job: 6
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00006-shom8fw5
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ----------fddd----------
+Manager:6000 [INFO] ('127.0.0.1', 52381)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 6 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52382)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 6 task 1 as finished
+Manager:6000 [INFO] manager going to assign reduce task 0, with 2 input files
+Manager:6000 [INFO] manager going to assign reduce task 1, with 2 input files
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] assign a task
+Manager:6000 [INFO] ('127.0.0.1', 52386)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 6 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 52385)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 6 task 1 as finished
+Manager:6000 [INFO] job 6 finished
+Manager:6000 [INFO] ('127.0.0.1', 52388)
+Manager:6000 [INFO] manager receive message, type shutdown
+Manager:6000 [INFO] call shutdown on manager, now there is 2 workers

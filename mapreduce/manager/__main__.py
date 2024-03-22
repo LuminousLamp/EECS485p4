@@ -5,7 +5,6 @@ import logging
 import json
 import time
 import click
-import mapreduce.utils
 import threading
 import socket
 from mapreduce.utils.utils import *
@@ -24,9 +23,7 @@ class Manager:
     def __init__(self, host, port):
         """Construct a Manager instance and start listening for messages."""
 
-        
         LOGGER.info("Manager init: host=%s port=%s pwd=%s", host, port, os.getcwd())
-        
 
         # attributes
         self.host: str = host
@@ -34,13 +31,13 @@ class Manager:
 
         self.status: int = STATUS_FREE
 
-        self.workers: dict[tuple, W_info] = {}
+        self.workers: dict[tuple, RemoteWorker] = {}
         self.workers_free: list[tuple] = []
 
         self.num_jobs: int = 0
         self.job_queue: deque = deque()
         self.curr_job: Job = None
-        
+
         self.lock_workers = threading.Lock()
 
         # start
@@ -57,7 +54,6 @@ class Manager:
         thread_runjob.join()
         thread_heartbeat.join()
         thread_faulttolerance.join()
-
 
     def listen_message(self):
         """main TCP socket listening messages"""
@@ -76,7 +72,7 @@ class Manager:
                     LOGGER.info(address)
                 except socket.timeout:
                     continue
-                
+
                 # get message dict
                 try:
                     message_dict = tcp_receive_json(clientsocket)
@@ -88,17 +84,30 @@ class Manager:
                     message_type = message_dict["message_type"]
                 except KeyError:
                     continue
-                
+
                 # execute according function
                 LOGGER.info(f"manager receive message, type {message_type}")
                 if message_type == "shutdown":
                     self._shutdown(sock)
                 elif message_type == "register":
-                    self._register_worker(message_dict["worker_host"], int(message_dict["worker_port"]))
+                    self._register_worker(
+                        message_dict["worker_host"], int(message_dict["worker_port"])
+                    )
                 elif message_type == "new_manager_job":
-                    self._create_job(message_dict["input_directory"], message_dict["output_directory"], message_dict["mapper_executable"], message_dict["reducer_executable"], int(message_dict["num_mappers"]), int(message_dict["num_reducers"]),)
+                    self._create_job(
+                        message_dict["input_directory"],
+                        message_dict["output_directory"],
+                        message_dict["mapper_executable"],
+                        message_dict["reducer_executable"],
+                        int(message_dict["num_mappers"]),
+                        int(message_dict["num_reducers"]),
+                    )
                 elif message_type == "finished":
-                    self._mark_task_finished(message_dict["task_id"], message_dict["worker_host"], message_dict["worker_port"])
+                    self._mark_task_finished(
+                        message_dict["task_id"],
+                        message_dict["worker_host"],
+                        message_dict["worker_port"],
+                    )
                 else:
                     continue
 
@@ -117,15 +126,14 @@ class Manager:
                         "message_type": "shutdown"
                     })
                     sock.sendall(shutdown_message.encode('utf-8'))
-        
+
         main_sock.close()
         os._exit(0)
-
 
     def _register_worker(self, worker_host: str, worker_port: int):
         LOGGER.info(f"register worker {worker_host}, {worker_port}")
 
-        self.workers[(worker_host, worker_port)] = W_info(worker_host, worker_port)
+        self.workers[(worker_host, worker_port)] = RemoteWorker(worker_host, worker_port)
         self.workers_free.append((worker_host, worker_port))
 
         # send register ack mssg to the worker
@@ -134,7 +142,6 @@ class Manager:
             registar_ack_message = json.dumps({"message_type": "register_ack"})
             sock.sendall(registar_ack_message.encode('utf-8'))
 
-    
     def _create_job(self, input_directory, output_directory, mapper_executable, reducer_executable, num_mappers, num_reducers):
         LOGGER.info(f"creating a new job {self.num_jobs}")
 
@@ -184,21 +191,11 @@ class Manager:
                 partitions = [[] for _ in range(self.curr_job.num_mappers)]
                 for task_id, input_files in enumerate(input_files):
                     partitions[task_id % self.curr_job.num_mappers].append(input_files)
-
-                # for every map task
+                
+                # register all tasks (num_tasks == num_mappers)
                 for task_id in range(self.curr_job.num_mappers):
-                    # register the task on the job
-                    self.curr_job.register_task(task_id)
 
-                    # get a free worker, wait if no workers available
-                    while len(self.workers_free) == 0:
-                        time.sleep(0.1)
-                    if self.status == STATUS_SHUTDOWN:
-                        break
-                    worker_addr = self.workers_free.pop(0)
-                    
-                    # and send it the task
-                    task_message = {
+                    task_info = {
                         "message_type": "new_map_task",
                         "task_id": task_id,
                         "input_paths": [os.path.join(self.curr_job.input_directory, file) for file in partitions[task_id]],
@@ -206,55 +203,75 @@ class Manager:
                         "output_directory": tmpdir,
                         # The output_directory in the Map Stage will always be the Manager’s temporary directory
                         "num_partitions": self.curr_job.num_reducers
-                    }
-                    self.workers[worker_addr].assign_task(task_message)
+                    }  
+                    self.curr_job.register_task(task_id, task_info)
+                
+                while self.curr_job.have_pending_job():
+                    
+                    # get the next pending task
+                    task_info = self.curr_job.next_task()
 
-                # wait until all map tasks run into completion, then start reduce job
+                    # get a free worker, wait if no workers available
+                    while len(self.workers_free) == 0 and self.status != STATUS_SHUTDOWN:
+                        time.sleep(0.1)
+                    if self.status == STATUS_SHUTDOWN:
+                        break
+                    worker_addr = self.workers_free.pop(0)
+
+                    # and send the worker the task
+                    LOGGER.info("assign a task")
+                    self.workers[worker_addr].assign_task(task_info)
+
+
+                # wait until all map tasks run into completion, then start reducing
+                LOGGER.info("----------fddd----------")
                 while not (self.curr_job.is_all_tasks_completed() or self.status == STATUS_SHUTDOWN):
                     time.sleep(0.1)
-                self.curr_job.clear_task_list()
+                if self.status == STATUS_SHUTDOWN:
+                    break
 
                 ###### R E D U C E ######
-                # check every file in this tmpdir, and for every file, assign task to the reducer
+                # register all tasks (num_tasks == num_mreducers)
                 for task_id in range(self.curr_job.num_reducers):
                     tmpdir_path = Path(tmpdir)
                     intermediate_files = [file.as_posix() for file in tmpdir_path.glob(f"maptask*-part{task_id:05d}")]
                     LOGGER.info(f"manager going to assign reduce task {task_id}, with {len(intermediate_files)} input files")
 
-                    # register the task on the job
-                    self.curr_job.register_task(task_id)
-
-                    # wait if no workers available
-                    while len(self.workers_free) == 0:
-                        time.sleep(0.1)
-                    if self.status == STATUS_SHUTDOWN:
-                        break
-
-                    # get an free worker, and send it the task
-                    worker_addr = self.workers_free.pop(0)
-                    task_message = {
+                    task_info = {
                         "message_type": "new_reduce_task",
                         "task_id": task_id,
                         "input_paths": intermediate_files,
                         "executable": self.curr_job.reducer_executable,
                         "output_directory": self.curr_job.output_directory
                     }
-                    self.workers[worker_addr].assign_task(task_message)
+                    self.curr_job.register_task(task_id, task_info)
                 
+                while self.curr_job.have_pending_job():
+                    # get the next pending task
+                    task_info = self.curr_job.next_task()
+
+                    # get a free worker, wait if no workers available
+                    while len(self.workers_free) == 0 and self.status != STATUS_SHUTDOWN:
+                        time.sleep(0.1)
+                    if self.status == STATUS_SHUTDOWN:
+                        break
+                    worker_addr = self.workers_free.pop(0)
+
+                    # and send the worker the task
+                    LOGGER.info("assign a task")
+                    self.workers[worker_addr].assign_task(task_info)
+
                 # wait until all reduce tasks run into completion
                 while not (self.curr_job.is_all_tasks_completed() or self.status == STATUS_SHUTDOWN):
                     time.sleep(0.1)
+                if self.status == STATUS_SHUTDOWN:
+                    break
 
-            
             # now the current job is completed
             LOGGER.info(f"job {self.curr_job.id} finished")
             assert self.status != STATUS_FREE
             self.curr_job = None
             self.status = STATUS_FREE
-            
-
-
-                    
 
     def listen_heartbeat(self):
         """UDP socket listening for heartbeats"""
@@ -270,27 +287,26 @@ class Manager:
                     message_dict = udp_receive_json(sock)
                 except:
                     continue
-                
+
                 try:
                     message_type = message_dict["message_type"]
                     worker_host = message_dict["worker_host"]
                     worker_port = message_dict["worker_port"]
                 except:
                     continue
-                
+
                 if (worker_host, worker_port) not in self.workers:
                     continue
-                
-                self.workers[(worker_host, worker_port)].receive_hearbeat()
 
+                self.workers[(worker_host, worker_port)].receive_hearbeat()
 
     def faulttolerance(self):
         # check missing heartbeat every 2 seconds
         while True:
-            
+
             self.lock_workers.acquire()
             for worker_addr, worker in self.workers.items():
-                
+
                 worker_is_dead = worker.record_heartbeat_miss()
 
                 # if the worker is dead,
@@ -299,7 +315,7 @@ class Manager:
                     # if it is free, remove it from free list
                     if worker_addr in self.workers_free:
                         self.workers_free = [worker for worker in self.workers_free if worker != worker_addr]
-                    
+
                     # otherwise, reassign its task to another worker
                     else:
                         worker_task = worker.curr_task
@@ -309,13 +325,12 @@ class Manager:
                             time.sleep(0.1)
                         if self.status == STATUS_SHUTDOWN:
                             break
-                        
+
                         worker_addr = self.workers_free.pop(0)
                         self.workers[worker_addr].assign_task(worker_task)
-            
+
             self.lock_workers.release()
 
-            
             time.sleep(2)
 
 @click.command()
