@@ -1,7 +1,1209 @@
 Manager:6000 [INFO] Manager init: host=localhost port=6000 pwd=/Users/led/Documents/EECS485p4
 Manager:6000 [INFO] manager setup TCP
 Manager:6000 [INFO] Manager setup UDP
+Manager:6000 [INFO] ('127.0.0.1', 55420)
 Manager:6000 [INFO] manager receive message, type register
-Manager:6000 [INFO] logging worker localhost, 6001
+Manager:6000 [INFO] register worker localhost, 6002
+Manager:6000 [INFO] ('127.0.0.1', 55419)
 Manager:6000 [INFO] manager receive message, type register
-Manager:6000 [INFO] logging worker localhost, 6002
+Manager:6000 [INFO] register worker localhost, 6001
+Manager:6000 [INFO] ('127.0.0.1', 55424)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 0
+Manager:6000 [INFO] ('127.0.0.1', 55425)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 1
+Manager:6000 [INFO] ('127.0.0.1', 55426)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 2
+Manager:6000 [INFO] ('127.0.0.1', 55427)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 3
+Manager:6000 [INFO] ('127.0.0.1', 55428)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 4
+Manager:6000 [INFO] ('127.0.0.1', 55429)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 5
+Manager:6000 [INFO] ('127.0.0.1', 55430)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 6
+Manager:6000 [INFO] ('127.0.0.1', 55431)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 7
+Manager:6000 [INFO] ('127.0.0.1', 55432)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 8
+Manager:6000 [INFO] ('127.0.0.1', 55433)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 9
+Manager:6000 [INFO] ('127.0.0.1', 55434)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 10
+Manager:6000 [INFO] ('127.0.0.1', 55435)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 11
+Manager:6000 [INFO] ('127.0.0.1', 55436)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 12
+Manager:6000 [INFO] ('127.0.0.1', 55437)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 13
+Manager:6000 [INFO] ('127.0.0.1', 55438)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 14
+Manager:6000 [INFO] ('127.0.0.1', 55439)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 15
+Manager:6000 [INFO] ('127.0.0.1', 55440)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 16
+Manager:6000 [INFO] ('127.0.0.1', 55441)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 17
+Manager:6000 [INFO] ('127.0.0.1', 55442)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 18
+Manager:6000 [INFO] ('127.0.0.1', 55443)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 19
+Manager:6000 [INFO] ('127.0.0.1', 55444)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 20
+Manager:6000 [INFO] ('127.0.0.1', 55445)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 21
+Manager:6000 [INFO] ('127.0.0.1', 55446)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 22
+Manager:6000 [INFO] ('127.0.0.1', 55447)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 23
+Manager:6000 [INFO] ('127.0.0.1', 55448)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 24
+Manager:6000 [INFO] ('127.0.0.1', 55449)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 25
+Manager:6000 [INFO] ('127.0.0.1', 55450)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 26
+Manager:6000 [INFO] ('127.0.0.1', 55451)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 27
+Manager:6000 [INFO] ('127.0.0.1', 55452)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 28
+Manager:6000 [INFO] ('127.0.0.1', 55453)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 29
+Manager:6000 [INFO] ('127.0.0.1', 55454)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 30
+Manager:6000 [INFO] ('127.0.0.1', 55455)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 31
+Manager:6000 [INFO] ('127.0.0.1', 55456)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 32
+Manager:6000 [INFO] ('127.0.0.1', 55457)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 33
+Manager:6000 [INFO] ('127.0.0.1', 55458)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 34
+Manager:6000 [INFO] ('127.0.0.1', 55459)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 35
+Manager:6000 [INFO] ('127.0.0.1', 55460)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 36
+Manager:6000 [INFO] ('127.0.0.1', 55461)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 37
+Manager:6000 [INFO] ('127.0.0.1', 55462)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 38
+Manager:6000 [INFO] ('127.0.0.1', 55463)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 39
+Manager:6000 [INFO] ('127.0.0.1', 55464)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 40
+Manager:6000 [INFO] ('127.0.0.1', 55465)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 41
+Manager:6000 [INFO] ('127.0.0.1', 55466)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 42
+Manager:6000 [INFO] ('127.0.0.1', 55467)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 43
+Manager:6000 [INFO] ('127.0.0.1', 55468)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 44
+Manager:6000 [INFO] ('127.0.0.1', 55469)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 45
+Manager:6000 [INFO] ('127.0.0.1', 55470)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 46
+Manager:6000 [INFO] ('127.0.0.1', 55471)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 47
+Manager:6000 [INFO] ('127.0.0.1', 55472)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 48
+Manager:6000 [INFO] ('127.0.0.1', 55473)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 49
+Manager:6000 [INFO] ('127.0.0.1', 55474)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 50
+Manager:6000 [INFO] ('127.0.0.1', 55475)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 51
+Manager:6000 [INFO] ('127.0.0.1', 55476)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 52
+Manager:6000 [INFO] ('127.0.0.1', 55477)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 53
+Manager:6000 [INFO] ('127.0.0.1', 55478)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 54
+Manager:6000 [INFO] ('127.0.0.1', 55479)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 55
+Manager:6000 [INFO] ('127.0.0.1', 55480)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 56
+Manager:6000 [INFO] ('127.0.0.1', 55481)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 57
+Manager:6000 [INFO] ('127.0.0.1', 55482)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 58
+Manager:6000 [INFO] ('127.0.0.1', 55483)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 59
+Manager:6000 [INFO] ('127.0.0.1', 55484)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 60
+Manager:6000 [INFO] ('127.0.0.1', 55485)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 61
+Manager:6000 [INFO] ('127.0.0.1', 55486)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 62
+Manager:6000 [INFO] ('127.0.0.1', 55487)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 63
+Manager:6000 [INFO] ('127.0.0.1', 55488)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 64
+Manager:6000 [INFO] ('127.0.0.1', 55489)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 65
+Manager:6000 [INFO] ('127.0.0.1', 55490)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 66
+Manager:6000 [INFO] ('127.0.0.1', 55491)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 67
+Manager:6000 [INFO] ('127.0.0.1', 55492)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 68
+Manager:6000 [INFO] ('127.0.0.1', 55493)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 69
+Manager:6000 [INFO] ('127.0.0.1', 55494)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 70
+Manager:6000 [INFO] ('127.0.0.1', 55495)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 71
+Manager:6000 [INFO] ('127.0.0.1', 55496)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 72
+Manager:6000 [INFO] ('127.0.0.1', 55497)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 73
+Manager:6000 [INFO] ('127.0.0.1', 55498)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 74
+Manager:6000 [INFO] ('127.0.0.1', 55499)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 75
+Manager:6000 [INFO] ('127.0.0.1', 55500)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 76
+Manager:6000 [INFO] ('127.0.0.1', 55501)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 77
+Manager:6000 [INFO] ('127.0.0.1', 55502)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 78
+Manager:6000 [INFO] ('127.0.0.1', 55503)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 79
+Manager:6000 [INFO] ('127.0.0.1', 55504)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 80
+Manager:6000 [INFO] ('127.0.0.1', 55505)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 81
+Manager:6000 [INFO] ('127.0.0.1', 55506)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 82
+Manager:6000 [INFO] ('127.0.0.1', 55507)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 83
+Manager:6000 [INFO] ('127.0.0.1', 55508)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 84
+Manager:6000 [INFO] ('127.0.0.1', 55509)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 85
+Manager:6000 [INFO] ('127.0.0.1', 55510)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 86
+Manager:6000 [INFO] ('127.0.0.1', 55511)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 87
+Manager:6000 [INFO] ('127.0.0.1', 55512)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 88
+Manager:6000 [INFO] ('127.0.0.1', 55513)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 89
+Manager:6000 [INFO] ('127.0.0.1', 55514)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 90
+Manager:6000 [INFO] ('127.0.0.1', 55515)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 91
+Manager:6000 [INFO] ('127.0.0.1', 55516)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 92
+Manager:6000 [INFO] ('127.0.0.1', 55517)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 93
+Manager:6000 [INFO] ('127.0.0.1', 55518)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 94
+Manager:6000 [INFO] ('127.0.0.1', 55519)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 95
+Manager:6000 [INFO] ('127.0.0.1', 55520)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 96
+Manager:6000 [INFO] ('127.0.0.1', 55521)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 97
+Manager:6000 [INFO] ('127.0.0.1', 55522)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 98
+Manager:6000 [INFO] ('127.0.0.1', 55523)
+Manager:6000 [INFO] manager receive message, type new_manager_job
+Manager:6000 [INFO] creating a new job 99
+Manager:6000 [INFO] starting to run a job: 0
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00000-5pcz63v6
+Manager:6000 [INFO] ('127.0.0.1', 55527)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 0 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55526)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 0 task 1 as finished
+Manager:6000 [INFO] job 0 finished
+Manager:6000 [INFO] starting to run a job: 1
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00001-dipr0pro
+Manager:6000 [INFO] ('127.0.0.1', 55530)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 1 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55531)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 1 task 1 as finished
+Manager:6000 [INFO] job 1 finished
+Manager:6000 [INFO] starting to run a job: 2
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00002-o3y_0n4e
+Manager:6000 [INFO] ('127.0.0.1', 55534)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 2 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55535)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 2 task 0 as finished
+Manager:6000 [INFO] job 2 finished
+Manager:6000 [INFO] starting to run a job: 3
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00003-410u9tr1
+Manager:6000 [INFO] ('127.0.0.1', 55538)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 3 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55539)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 3 task 1 as finished
+Manager:6000 [INFO] job 3 finished
+Manager:6000 [INFO] starting to run a job: 4
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00004-psy4lcng
+Manager:6000 [INFO] ('127.0.0.1', 55543)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 4 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55542)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 4 task 0 as finished
+Manager:6000 [INFO] job 4 finished
+Manager:6000 [INFO] starting to run a job: 5
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00005-0psglvgf
+Manager:6000 [INFO] ('127.0.0.1', 55546)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 5 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55547)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 5 task 1 as finished
+Manager:6000 [INFO] job 5 finished
+Manager:6000 [INFO] starting to run a job: 6
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00006-1bl6yj6_
+Manager:6000 [INFO] ('127.0.0.1', 55551)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 6 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55550)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 6 task 1 as finished
+Manager:6000 [INFO] job 6 finished
+Manager:6000 [INFO] starting to run a job: 7
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00007-6gp76221
+Manager:6000 [INFO] ('127.0.0.1', 55554)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 7 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55556)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 7 task 0 as finished
+Manager:6000 [INFO] job 7 finished
+Manager:6000 [INFO] starting to run a job: 8
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00008-hpmwo2re
+Manager:6000 [INFO] ('127.0.0.1', 55559)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 8 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55560)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 8 task 1 as finished
+Manager:6000 [INFO] job 8 finished
+Manager:6000 [INFO] starting to run a job: 9
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00009-mavsx9wc
+Manager:6000 [INFO] ('127.0.0.1', 55564)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 9 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55563)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 9 task 0 as finished
+Manager:6000 [INFO] job 9 finished
+Manager:6000 [INFO] starting to run a job: 10
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00010-u3k_wr0t
+Manager:6000 [INFO] ('127.0.0.1', 55568)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 10 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55567)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 10 task 1 as finished
+Manager:6000 [INFO] job 10 finished
+Manager:6000 [INFO] starting to run a job: 11
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00011-od73mg2b
+Manager:6000 [INFO] ('127.0.0.1', 55572)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 11 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55571)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 11 task 1 as finished
+Manager:6000 [INFO] job 11 finished
+Manager:6000 [INFO] starting to run a job: 12
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00012-l3679yu4
+Manager:6000 [INFO] ('127.0.0.1', 55576)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 12 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55575)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 12 task 1 as finished
+Manager:6000 [INFO] job 12 finished
+Manager:6000 [INFO] starting to run a job: 13
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00013-t73y3wrq
+Manager:6000 [INFO] ('127.0.0.1', 55579)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 13 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55580)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 13 task 0 as finished
+Manager:6000 [INFO] job 13 finished
+Manager:6000 [INFO] starting to run a job: 14
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00014-1vuclgl8
+Manager:6000 [INFO] ('127.0.0.1', 55584)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 14 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55583)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 14 task 0 as finished
+Manager:6000 [INFO] job 14 finished
+Manager:6000 [INFO] starting to run a job: 15
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00015-3wxxpc0a
+Manager:6000 [INFO] ('127.0.0.1', 55588)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 15 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55587)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 15 task 0 as finished
+Manager:6000 [INFO] job 15 finished
+Manager:6000 [INFO] starting to run a job: 16
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00016-y87a2g9z
+Manager:6000 [INFO] ('127.0.0.1', 55592)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 16 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55591)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 16 task 0 as finished
+Manager:6000 [INFO] job 16 finished
+Manager:6000 [INFO] starting to run a job: 17
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00017-ancu7f_z
+Manager:6000 [INFO] ('127.0.0.1', 55595)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 17 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55596)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 17 task 0 as finished
+Manager:6000 [INFO] job 17 finished
+Manager:6000 [INFO] starting to run a job: 18
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00018-f4g6cw8a
+Manager:6000 [INFO] ('127.0.0.1', 55599)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 18 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55600)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 18 task 1 as finished
+Manager:6000 [INFO] job 18 finished
+Manager:6000 [INFO] starting to run a job: 19
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00019-uk5_ucwc
+Manager:6000 [INFO] ('127.0.0.1', 55603)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 19 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55604)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 19 task 0 as finished
+Manager:6000 [INFO] job 19 finished
+Manager:6000 [INFO] starting to run a job: 20
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00020-djeo3q2y
+Manager:6000 [INFO] ('127.0.0.1', 55607)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 20 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55608)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 20 task 1 as finished
+Manager:6000 [INFO] job 20 finished
+Manager:6000 [INFO] starting to run a job: 21
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00021-9kfgs9ve
+Manager:6000 [INFO] ('127.0.0.1', 55611)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 21 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55612)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 21 task 0 as finished
+Manager:6000 [INFO] job 21 finished
+Manager:6000 [INFO] starting to run a job: 22
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00022-_4__i4s2
+Manager:6000 [INFO] ('127.0.0.1', 55616)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 22 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55615)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 22 task 0 as finished
+Manager:6000 [INFO] job 22 finished
+Manager:6000 [INFO] starting to run a job: 23
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00023-fhuc_6vs
+Manager:6000 [INFO] ('127.0.0.1', 55620)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 23 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55619)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 23 task 1 as finished
+Manager:6000 [INFO] job 23 finished
+Manager:6000 [INFO] starting to run a job: 24
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00024-7w3jhom2
+Manager:6000 [INFO] ('127.0.0.1', 55624)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 24 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55623)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 24 task 0 as finished
+Manager:6000 [INFO] job 24 finished
+Manager:6000 [INFO] starting to run a job: 25
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00025-uvbxr1j4
+Manager:6000 [INFO] ('127.0.0.1', 55628)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 25 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55627)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 25 task 0 as finished
+Manager:6000 [INFO] job 25 finished
+Manager:6000 [INFO] starting to run a job: 26
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00026-qm9mqqx7
+Manager:6000 [INFO] ('127.0.0.1', 55631)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 26 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55632)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 26 task 0 as finished
+Manager:6000 [INFO] job 26 finished
+Manager:6000 [INFO] starting to run a job: 27
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00027-s2mcxjvi
+Manager:6000 [INFO] ('127.0.0.1', 55636)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 27 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55635)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 27 task 0 as finished
+Manager:6000 [INFO] job 27 finished
+Manager:6000 [INFO] starting to run a job: 28
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00028-nbd6twtw
+Manager:6000 [INFO] ('127.0.0.1', 55640)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 28 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55639)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 28 task 1 as finished
+Manager:6000 [INFO] job 28 finished
+Manager:6000 [INFO] starting to run a job: 29
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00029-0q6wx8xl
+Manager:6000 [INFO] ('127.0.0.1', 55643)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 29 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55644)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 29 task 1 as finished
+Manager:6000 [INFO] job 29 finished
+Manager:6000 [INFO] starting to run a job: 30
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00030-dyb1dgly
+Manager:6000 [INFO] ('127.0.0.1', 55647)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 30 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55648)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 30 task 0 as finished
+Manager:6000 [INFO] job 30 finished
+Manager:6000 [INFO] starting to run a job: 31
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00031-7n56c15j
+Manager:6000 [INFO] ('127.0.0.1', 55651)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 31 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55652)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 31 task 1 as finished
+Manager:6000 [INFO] job 31 finished
+Manager:6000 [INFO] starting to run a job: 32
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00032-zofqy62o
+Manager:6000 [INFO] ('127.0.0.1', 55655)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 32 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55656)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 32 task 1 as finished
+Manager:6000 [INFO] job 32 finished
+Manager:6000 [INFO] starting to run a job: 33
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00033-vcgh4h0m
+Manager:6000 [INFO] ('127.0.0.1', 55659)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 33 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55660)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 33 task 1 as finished
+Manager:6000 [INFO] job 33 finished
+Manager:6000 [INFO] starting to run a job: 34
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00034-y_f2ez5x
+Manager:6000 [INFO] ('127.0.0.1', 55663)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 34 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55664)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 34 task 1 as finished
+Manager:6000 [INFO] job 34 finished
+Manager:6000 [INFO] starting to run a job: 35
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00035-ytsl4ouq
+Manager:6000 [INFO] ('127.0.0.1', 55667)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 35 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55668)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 35 task 1 as finished
+Manager:6000 [INFO] job 35 finished
+Manager:6000 [INFO] starting to run a job: 36
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00036-gs3xrdrm
+Manager:6000 [INFO] ('127.0.0.1', 55672)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 36 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55671)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 36 task 0 as finished
+Manager:6000 [INFO] job 36 finished
+Manager:6000 [INFO] starting to run a job: 37
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00037-mha306u4
+Manager:6000 [INFO] ('127.0.0.1', 55676)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 37 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55675)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 37 task 1 as finished
+Manager:6000 [INFO] job 37 finished
+Manager:6000 [INFO] starting to run a job: 38
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00038-53uopxkl
+Manager:6000 [INFO] ('127.0.0.1', 55680)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 38 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55679)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 38 task 1 as finished
+Manager:6000 [INFO] job 38 finished
+Manager:6000 [INFO] starting to run a job: 39
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00039-unkdr19s
+Manager:6000 [INFO] ('127.0.0.1', 55683)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 39 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55684)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 39 task 1 as finished
+Manager:6000 [INFO] job 39 finished
+Manager:6000 [INFO] starting to run a job: 40
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00040-4v1i1t5h
+Manager:6000 [INFO] ('127.0.0.1', 55687)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 40 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55688)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 40 task 0 as finished
+Manager:6000 [INFO] job 40 finished
+Manager:6000 [INFO] starting to run a job: 41
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00041-gntqvc_t
+Manager:6000 [INFO] ('127.0.0.1', 55692)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 41 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55691)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 41 task 0 as finished
+Manager:6000 [INFO] job 41 finished
+Manager:6000 [INFO] starting to run a job: 42
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00042-sf5dpy4h
+Manager:6000 [INFO] ('127.0.0.1', 55695)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 42 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55696)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 42 task 1 as finished
+Manager:6000 [INFO] job 42 finished
+Manager:6000 [INFO] starting to run a job: 43
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00043-1obqdhps
+Manager:6000 [INFO] ('127.0.0.1', 55700)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 43 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55699)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 43 task 1 as finished
+Manager:6000 [INFO] job 43 finished
+Manager:6000 [INFO] starting to run a job: 44
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00044-0pcabl_9
+Manager:6000 [INFO] ('127.0.0.1', 55703)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 44 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55704)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 44 task 0 as finished
+Manager:6000 [INFO] job 44 finished
+Manager:6000 [INFO] starting to run a job: 45
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00045-i_uavfl8
+Manager:6000 [INFO] ('127.0.0.1', 55708)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 45 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55707)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 45 task 1 as finished
+Manager:6000 [INFO] job 45 finished
+Manager:6000 [INFO] starting to run a job: 46
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00046-e62hlgyx
+Manager:6000 [INFO] ('127.0.0.1', 55711)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 46 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55712)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 46 task 1 as finished
+Manager:6000 [INFO] job 46 finished
+Manager:6000 [INFO] starting to run a job: 47
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00047-c9jq78ni
+Manager:6000 [INFO] ('127.0.0.1', 55716)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 47 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55715)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 47 task 0 as finished
+Manager:6000 [INFO] job 47 finished
+Manager:6000 [INFO] starting to run a job: 48
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00048-d9_3retr
+Manager:6000 [INFO] ('127.0.0.1', 55720)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 48 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55719)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 48 task 1 as finished
+Manager:6000 [INFO] job 48 finished
+Manager:6000 [INFO] starting to run a job: 49
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00049-vpzv23nx
+Manager:6000 [INFO] ('127.0.0.1', 55724)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 49 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55723)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 49 task 1 as finished
+Manager:6000 [INFO] job 49 finished
+Manager:6000 [INFO] starting to run a job: 50
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00050-on18jfnn
+Manager:6000 [INFO] ('127.0.0.1', 55728)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 50 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55727)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 50 task 1 as finished
+Manager:6000 [INFO] job 50 finished
+Manager:6000 [INFO] starting to run a job: 51
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00051-sea1t6j_
+Manager:6000 [INFO] ('127.0.0.1', 55731)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 51 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55732)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 51 task 0 as finished
+Manager:6000 [INFO] job 51 finished
+Manager:6000 [INFO] starting to run a job: 52
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00052-2nngmtfm
+Manager:6000 [INFO] ('127.0.0.1', 55736)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 52 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55735)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 52 task 0 as finished
+Manager:6000 [INFO] job 52 finished
+Manager:6000 [INFO] starting to run a job: 53
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00053-9up5z6gm
+Manager:6000 [INFO] ('127.0.0.1', 55740)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 53 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55739)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 53 task 1 as finished
+Manager:6000 [INFO] job 53 finished
+Manager:6000 [INFO] starting to run a job: 54
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00054-ju1b6kw4
+Manager:6000 [INFO] ('127.0.0.1', 55743)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 54 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55744)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 54 task 0 as finished
+Manager:6000 [INFO] job 54 finished
+Manager:6000 [INFO] starting to run a job: 55
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00055-khdk30va
+Manager:6000 [INFO] ('127.0.0.1', 55747)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 55 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55748)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 55 task 0 as finished
+Manager:6000 [INFO] job 55 finished
+Manager:6000 [INFO] starting to run a job: 56
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00056-qgk8m30h
+Manager:6000 [INFO] ('127.0.0.1', 55752)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 56 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55751)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 56 task 1 as finished
+Manager:6000 [INFO] job 56 finished
+Manager:6000 [INFO] starting to run a job: 57
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00057-qescz0qx
+Manager:6000 [INFO] ('127.0.0.1', 55755)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 57 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55756)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 57 task 0 as finished
+Manager:6000 [INFO] job 57 finished
+Manager:6000 [INFO] starting to run a job: 58
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00058-jr5iprjy
+Manager:6000 [INFO] ('127.0.0.1', 55760)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 58 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55759)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 58 task 0 as finished
+Manager:6000 [INFO] job 58 finished
+Manager:6000 [INFO] starting to run a job: 59
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00059-b5vwe8m7
+Manager:6000 [INFO] ('127.0.0.1', 55763)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 59 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55764)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 59 task 0 as finished
+Manager:6000 [INFO] job 59 finished
+Manager:6000 [INFO] starting to run a job: 60
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00060-qb2nty7l
+Manager:6000 [INFO] ('127.0.0.1', 55768)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 60 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55767)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 60 task 0 as finished
+Manager:6000 [INFO] job 60 finished
+Manager:6000 [INFO] starting to run a job: 61
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00061-0q8oh4r3
+Manager:6000 [INFO] ('127.0.0.1', 55771)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 61 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55772)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 61 task 1 as finished
+Manager:6000 [INFO] job 61 finished
+Manager:6000 [INFO] starting to run a job: 62
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00062-i1p16hvu
+Manager:6000 [INFO] ('127.0.0.1', 55775)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 62 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55776)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 62 task 0 as finished
+Manager:6000 [INFO] job 62 finished
+Manager:6000 [INFO] starting to run a job: 63
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00063-ikx7_x5j
+Manager:6000 [INFO] ('127.0.0.1', 55779)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 63 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55780)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 63 task 0 as finished
+Manager:6000 [INFO] job 63 finished
+Manager:6000 [INFO] starting to run a job: 64
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00064-422flgc_
+Manager:6000 [INFO] ('127.0.0.1', 55784)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 64 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55783)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 64 task 1 as finished
+Manager:6000 [INFO] job 64 finished
+Manager:6000 [INFO] starting to run a job: 65
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00065-t_oaa5hu
+Manager:6000 [INFO] ('127.0.0.1', 55788)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 65 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55787)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 65 task 1 as finished
+Manager:6000 [INFO] job 65 finished
+Manager:6000 [INFO] starting to run a job: 66
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00066-g94uv7ir
+Manager:6000 [INFO] ('127.0.0.1', 55792)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 66 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55791)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 66 task 1 as finished
+Manager:6000 [INFO] job 66 finished
+Manager:6000 [INFO] starting to run a job: 67
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00067-z94vq_nk
+Manager:6000 [INFO] ('127.0.0.1', 55795)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 67 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55796)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 67 task 0 as finished
+Manager:6000 [INFO] job 67 finished
+Manager:6000 [INFO] starting to run a job: 68
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00068-ut_8za8b
+Manager:6000 [INFO] ('127.0.0.1', 55800)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 68 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55799)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 68 task 1 as finished
+Manager:6000 [INFO] job 68 finished
+Manager:6000 [INFO] starting to run a job: 69
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00069-h366fd4w
+Manager:6000 [INFO] ('127.0.0.1', 55803)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 69 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55804)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 69 task 1 as finished
+Manager:6000 [INFO] job 69 finished
+Manager:6000 [INFO] starting to run a job: 70
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00070-x_6b2z6y
+Manager:6000 [INFO] ('127.0.0.1', 55807)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 70 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55808)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 70 task 1 as finished
+Manager:6000 [INFO] job 70 finished
+Manager:6000 [INFO] starting to run a job: 71
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00071-n2dq168a
+Manager:6000 [INFO] ('127.0.0.1', 55811)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 71 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55812)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 71 task 1 as finished
+Manager:6000 [INFO] job 71 finished
+Manager:6000 [INFO] starting to run a job: 72
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00072-ca0cyyoi
+Manager:6000 [INFO] ('127.0.0.1', 55816)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 72 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55815)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 72 task 0 as finished
+Manager:6000 [INFO] job 72 finished
+Manager:6000 [INFO] starting to run a job: 73
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00073-54hubfwk
+Manager:6000 [INFO] ('127.0.0.1', 55819)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 73 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55820)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 73 task 0 as finished
+Manager:6000 [INFO] job 73 finished
+Manager:6000 [INFO] starting to run a job: 74
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00074-enwt7xks
+Manager:6000 [INFO] ('127.0.0.1', 55824)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 74 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55823)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 74 task 0 as finished
+Manager:6000 [INFO] job 74 finished
+Manager:6000 [INFO] starting to run a job: 75
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00075-a3f4xi_d
+Manager:6000 [INFO] ('127.0.0.1', 55827)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 75 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55828)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 75 task 0 as finished
+Manager:6000 [INFO] job 75 finished
+Manager:6000 [INFO] starting to run a job: 76
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00076-jxrd9jvk
+Manager:6000 [INFO] ('127.0.0.1', 55831)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 76 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55832)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 76 task 0 as finished
+Manager:6000 [INFO] job 76 finished
+Manager:6000 [INFO] starting to run a job: 77
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00077-bd4hi7cf
+Manager:6000 [INFO] ('127.0.0.1', 55835)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 77 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55836)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 77 task 0 as finished
+Manager:6000 [INFO] job 77 finished
+Manager:6000 [INFO] starting to run a job: 78
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00078-j496ptr0
+Manager:6000 [INFO] ('127.0.0.1', 55840)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 78 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55839)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 78 task 0 as finished
+Manager:6000 [INFO] job 78 finished
+Manager:6000 [INFO] starting to run a job: 79
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00079-83pdsual
+Manager:6000 [INFO] ('127.0.0.1', 55844)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 79 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55843)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 79 task 1 as finished
+Manager:6000 [INFO] job 79 finished
+Manager:6000 [INFO] starting to run a job: 80
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00080-kchh1l4_
+Manager:6000 [INFO] ('127.0.0.1', 55847)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 80 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55848)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 80 task 0 as finished
+Manager:6000 [INFO] job 80 finished
+Manager:6000 [INFO] starting to run a job: 81
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00081-mtar48kl
+Manager:6000 [INFO] ('127.0.0.1', 55851)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 81 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55852)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 81 task 1 as finished
+Manager:6000 [INFO] job 81 finished
+Manager:6000 [INFO] starting to run a job: 82
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00082-3ikp01gq
+Manager:6000 [INFO] ('127.0.0.1', 55855)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 82 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55856)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 82 task 0 as finished
+Manager:6000 [INFO] job 82 finished
+Manager:6000 [INFO] starting to run a job: 83
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00083-yivigukh
+Manager:6000 [INFO] ('127.0.0.1', 55860)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 83 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55859)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 83 task 1 as finished
+Manager:6000 [INFO] job 83 finished
+Manager:6000 [INFO] starting to run a job: 84
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00084-u3w7ccsg
+Manager:6000 [INFO] ('127.0.0.1', 55864)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 84 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55863)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 84 task 1 as finished
+Manager:6000 [INFO] job 84 finished
+Manager:6000 [INFO] starting to run a job: 85
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00085-qliiaxlx
+Manager:6000 [INFO] ('127.0.0.1', 55868)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 85 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55867)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 85 task 1 as finished
+Manager:6000 [INFO] job 85 finished
+Manager:6000 [INFO] starting to run a job: 86
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00086-heh78cxt
+Manager:6000 [INFO] ('127.0.0.1', 55871)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 86 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55872)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 86 task 0 as finished
+Manager:6000 [INFO] job 86 finished
+Manager:6000 [INFO] starting to run a job: 87
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00087-uz349biz
+Manager:6000 [INFO] ('127.0.0.1', 55875)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 87 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55876)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 87 task 1 as finished
+Manager:6000 [INFO] job 87 finished
+Manager:6000 [INFO] starting to run a job: 88
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00088-x1uj5v4l
+Manager:6000 [INFO] ('127.0.0.1', 55880)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 88 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55879)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 88 task 0 as finished
+Manager:6000 [INFO] job 88 finished
+Manager:6000 [INFO] starting to run a job: 89
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00089-bfqqycf9
+Manager:6000 [INFO] ('127.0.0.1', 55883)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 89 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55884)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 89 task 0 as finished
+Manager:6000 [INFO] job 89 finished
+Manager:6000 [INFO] starting to run a job: 90
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00090-o4hzeb6h
+Manager:6000 [INFO] ('127.0.0.1', 55889)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 90 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55888)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 90 task 0 as finished
+Manager:6000 [INFO] job 90 finished
+Manager:6000 [INFO] starting to run a job: 91
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00091-21qpmagx
+Manager:6000 [INFO] ('127.0.0.1', 55893)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 91 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55892)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 91 task 1 as finished
+Manager:6000 [INFO] job 91 finished
+Manager:6000 [INFO] starting to run a job: 92
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00092-78ojjkq9
+Manager:6000 [INFO] ('127.0.0.1', 55897)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 92 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55896)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 92 task 1 as finished
+Manager:6000 [INFO] job 92 finished
+Manager:6000 [INFO] starting to run a job: 93
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00093-ibor6u5k
+Manager:6000 [INFO] ('127.0.0.1', 55900)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 93 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55901)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 93 task 0 as finished
+Manager:6000 [INFO] job 93 finished
+Manager:6000 [INFO] starting to run a job: 94
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00094-rorxsc_8
+Manager:6000 [INFO] ('127.0.0.1', 55905)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 94 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55904)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 94 task 1 as finished
+Manager:6000 [INFO] job 94 finished
+Manager:6000 [INFO] starting to run a job: 95
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00095-7mqp5gpg
+Manager:6000 [INFO] ('127.0.0.1', 55909)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 95 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55908)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 95 task 0 as finished
+Manager:6000 [INFO] job 95 finished
+Manager:6000 [INFO] starting to run a job: 96
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00096-izudiie4
+Manager:6000 [INFO] ('127.0.0.1', 55912)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 96 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55913)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 96 task 1 as finished
+Manager:6000 [INFO] job 96 finished
+Manager:6000 [INFO] starting to run a job: 97
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00097-3nnde859
+Manager:6000 [INFO] ('127.0.0.1', 55916)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 97 task 1 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55917)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 97 task 0 as finished
+Manager:6000 [INFO] job 97 finished
+Manager:6000 [INFO] starting to run a job: 98
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00098-krw_iaib
+Manager:6000 [INFO] ('127.0.0.1', 55920)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 98 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55921)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 98 task 1 as finished
+Manager:6000 [INFO] job 98 finished
+Manager:6000 [INFO] starting to run a job: 99
+Manager:6000 [INFO] Created tmpdir /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00099-vq4w3dvh
+Manager:6000 [INFO] ('127.0.0.1', 55924)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 99 task 0 as finished
+Manager:6000 [INFO] ('127.0.0.1', 55925)
+Manager:6000 [INFO] manager receive message, type finished
+Manager:6000 [INFO] mark job 99 task 1 as finished
+Manager:6000 [INFO] job 99 finished

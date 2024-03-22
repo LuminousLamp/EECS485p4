@@ -11,6 +11,7 @@ import socket
 from mapreduce.utils.utils import *
 from collections import deque
 import shutil
+from pathlib import Path
 
 
 # Configure logging
@@ -133,15 +134,20 @@ class Manager:
 
     
     def _create_job(self, input_directory, output_directory, mapper_executable, reducer_executable, num_mappers, num_reducers):
+        LOGGER.info(f"creating a new job {self.num_jobs}")
+
         new_job: Job = Job(self.num_jobs, input_directory, output_directory, mapper_executable, reducer_executable, num_mappers, num_reducers)
         self.job_queue.append(new_job)
 
         self.num_jobs += 1
 
     def _mark_task_finished(self, task_id:int, worker_host: str, worker_port:int):
+        LOGGER.info(f"mark job {self.curr_job.id} task {task_id} as finished")
+
         # mark the task as finished
-        self.curr_job.task_list[task_id]["status"] = "finished"
+        self.curr_job.map_task_list[task_id]["status"] = "finished"
         # worker back to ready
+        assert self.workers[(worker_host, worker_port)].status == STATUS_BUSY
         self.workers[(worker_host, worker_port)].status = STATUS_FREE
         self.workers_free.append((worker_host, worker_port))
 
@@ -154,6 +160,7 @@ class Manager:
                 time.sleep(0.1)
 
             # start a new job
+            assert (self.status == STATUS_FREE, "the manager status should be STATUS_FREE upon executing a job")
             self.status = STATUS_BUSY
             self.curr_job: Job = self.job_queue.popleft()
             LOGGER.info(f"starting to run a job: {self.curr_job.id}")
@@ -173,13 +180,13 @@ class Manager:
 
                 # Divide the input files into num_mappers partitions using round robin
                 partitions = [[] for _ in range(self.curr_job.num_mappers)]
-                for i, file in enumerate(input_files):
-                    partitions[i % self.curr_job.num_mappers].append(file)
+                for i, input_files in enumerate(input_files):
+                    partitions[i % self.curr_job.num_mappers].append(input_files)
 
-                # for every task
-                for task_id, partition in enumerate(partitions):
+                # for every map task
+                for map_task_id in range(self.curr_job.num_mappers):
                     # register the task on the job
-                    self.curr_job.register_task_list(task_id, partition)
+                    self.curr_job.register_map_task_list(map_task_id, partitions[map_task_id])
 
                     # wait if no workers available
                     while len(self.workers_free) == 0:
@@ -189,25 +196,66 @@ class Manager:
                     
                     # get an free worker, and send it the task
                     worker_host, worker_port = self.workers_free.popleft()
+                    assert (self.workers[(worker_host, worker_port)].status == STATUS_READY,
+                            "the worker should be STATUS_READY, but it is not")
                     self.workers[(worker_host, worker_port)].status = STATUS_BUSY
                     task_message = {
                         "message_type": "new_map_task",
-                        "task_id": task_id,
-                        "input_paths": partition,
+                        "task_id": map_task_id,
+                        "input_paths": [os.path.join(self.curr_job.input_directory, file) for file in partitions[map_task_id]],
                         "executable": self.curr_job.mapper_executable,
-                        "output_directory": self.curr_job.output_directory,
+                        "output_directory": tmpdir,
+                        # The output_directory in the Map Stage will always be the Manager’s temporary directory
                         "num_partitions": self.curr_job.num_reducers
                     }
-
                     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                         sock.connect((worker_host, worker_port))
                         message = json.dumps(task_message)
                         sock.sendall(message.encode('utf-8'))
-            
-                while not self.status == STATUS_SHUTDOWN or not self.curr_job.is_all_tasks_completed():
+
+                # wait until all map tasks run into completion, then start reduce job
+                while not (self.curr_job.is_all_map_tasks_completed() or self.status == STATUS_SHUTDOWN):
                     time.sleep(0.1)
+                
+
+                # check every file in this tmpdir, and for every file, assign task to the reducer
+                for reduce_task_id in range(self.curr_job.num_reducers):
+                    intermediate_files = [file.as_posix() for file in tmpdir.glob(f"maptask*-part{reduce_task_id:05d}")]
+
+                    # register the task on the job
+                    self.curr_job.register_reduce_task_list(reduce_task_id)
+
+                    # wait if no workers available
+                    while len(self.workers_free) == 0:
+                        time.sleep(0.1)
+                    if self.status == STATUS_SHUTDOWN:
+                        break
+
+                    # get an free worker, and send it the task
+                    worker_host, worker_port = self.workers_free.popleft()
+                    assert (self.workers[(worker_host, worker_port)].status == STATUS_READY,
+                            "the worker should be STATUS_READY, but it is not")
+                    self.workers[(worker_host, worker_port)].status = STATUS_BUSY
+                    task_message = {
+                        "message_type": "new_reduce_task",
+                        "task_id": reduce_task_id,
+                        "input_paths": intermediate_files,
+                        "executable": self.curr_job.reducer_executable,
+                        "output_directory": self.curr_job.output_directory
+                    }
+                    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                        sock.connect((worker_host, worker_port))
+                        message = json.dumps(task_message)
+                        sock.sendall(message.encode('utf-8'))
+                
+                # wait until all reduce tasks run into completion
+                while not (self.curr_job.is_all_reduce_tasks_completed() or self.status == STATUS_SHUTDOWN):
+                    time.sleep(0.1)
+
             
             # now the current job is completed
+            LOGGER.info(f"job {self.curr_job.id} finished")
+            assert (self.status != STATUS_FREE)
             self.curr_job = None
             self.status = STATUS_FREE
             

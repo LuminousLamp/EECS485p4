@@ -19,17 +19,30 @@ class Job:
         self.num_mappers: int = num_mappers
         self.num_reducers: int = num_reducers
 
-        self.task_list: dict[int, dict] = {}
+        self.map_task_list: dict[int, dict] = {}
+        self.reduce_task_list: dict[int, dict] = {}
 
-    def register_task_list(self, task_id: int, input_files: list):
+    def register_map_task_list(self, task_id: int, input_files: list):
         task_info = {
             "status": "unfinished",
             "input_files": input_files
         }
-        self.task_list[task_id] = task_info
+        self.map_task_list[task_id] = task_info
 
-    def is_all_tasks_completed(self):
-        for task_id, task_info in self.task_list.items():
+    def is_all_map_tasks_completed(self):
+        for task_id, task_info in self.map_task_list.items():
+            if task_info["status"] != "finished":
+                return False
+        return True
+    
+    def register_reduce_task_list(self, task_id: int):
+        task_info = {
+            "status": "unfinished",
+        }
+        self.reduce_task_list[task_id] = task_info
+
+    def is_all_reduce_tasks_completed(self):
+        for task_id, task_info in self.reduce_task_list.items():
             if task_info["status"] != "finished":
                 return False
         return True
