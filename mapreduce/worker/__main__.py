@@ -137,7 +137,8 @@ class Worker:
                     "worker_port": self.port
                 })
                 sock.sendall(heartbeat_message.encode('utf-8'))
-                time.sleep(1)
+                
+                time.sleep(2)
 
     def do_maptask(self):
         
@@ -149,9 +150,9 @@ class Worker:
             # generate intermediate files
             outfiles: list[TextIOWrapper] = []
             for i in range(self.num_partitions):
-                    filename = os.path.join(tmpdir, f"maptask{self.task_id:05d}-part{i:05d}")
-                    outfile = open(filename, "w")
-                    outfiles.append(outfile)
+                filename = os.path.join(tmpdir, f"maptask{self.task_id:05d}-part{i:05d}")
+                outfile = open(filename, "w")
+                outfiles.append(outfile)
 
             # Run the map executable on all the input files
             # for every input file
@@ -170,7 +171,9 @@ class Worker:
                             keyhash = int(hexdigest, base=16)
                             partition_number = keyhash % self.num_partitions
                             outfiles[partition_number].write(f"{key}\t{value}\n")
-
+            for outfile in outfiles:
+                outfile.close()
+            
             # sort intermediate files
             for i in range(self.num_partitions):
                 filename = os.path.join(tmpdir, f"maptask{self.task_id:05d}-part{i:05d}")
@@ -197,10 +200,35 @@ class Worker:
         self.status = STATUS_READY
     
     def do_reducetask(self):
-        LOGGER.info(f"worker begin to do map task {self.task_id}")
+        LOGGER.info(f"worker begin to do reduce task {self.task_id}")
         self.status = STATUS_BUSY
 
+        prefix = f"mapreduce-local-task{self.task_id:05d}-"
+        with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
+            # Merge the input files into one sorted output stream
+            merged_output = os.path.join(tmpdir, f"reducetask{self.task_id:05d}-merged")
+            with open(merged_output, "w") as outfile:
+                for input_path in self.input_paths:
+                    with open(input_path) as infile:
+                        for line in infile:
+                            outfile.write(line)
 
+            # Run the reduce executable on the merged input
+            output_file = os.path.join(tmpdir, f"reducetask{self.task_id:05d}-output")
+            with open(output_file, "w") as outfile:
+                with subprocess.Popen(
+                    [self.executable],
+                    stdin=subprocess.PIPE,
+                    stdout=outfile,
+                    text=True,
+                ) as reduce_process:
+                    with open(merged_output) as infile:
+                        for line in infile:
+                            reduce_process.stdin.write(line)
+
+            # Move the output file to the output_directory specified by the task
+            output_filename = os.path.join(self.output_directory, f"reducetask{self.task_id:05d}")
+            os.rename(output_file, output_filename)
 
         self.status = STATUS_READY
 

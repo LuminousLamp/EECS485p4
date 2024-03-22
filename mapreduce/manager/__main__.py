@@ -164,6 +164,7 @@ class Manager:
             self.status = STATUS_BUSY
             self.curr_job: Job = self.job_queue.popleft()
             LOGGER.info(f"starting to run a job: {self.curr_job.id}")
+            task_id = 0
 
             # delete the output directory if it already exists, create the output directory
             if os.path.exists(self.curr_job.output_directory):
@@ -184,9 +185,9 @@ class Manager:
                     partitions[i % self.curr_job.num_mappers].append(input_files)
 
                 # for every map task
-                for map_task_id in range(self.curr_job.num_mappers):
+                for i in range(self.curr_job.num_mappers):
                     # register the task on the job
-                    self.curr_job.register_map_task_list(map_task_id, partitions[map_task_id])
+                    self.curr_job.register_map_task_list(task_id, partitions[i])
 
                     # wait if no workers available
                     while len(self.workers_free) == 0:
@@ -201,8 +202,8 @@ class Manager:
                     self.workers[(worker_host, worker_port)].status = STATUS_BUSY
                     task_message = {
                         "message_type": "new_map_task",
-                        "task_id": map_task_id,
-                        "input_paths": [os.path.join(self.curr_job.input_directory, file) for file in partitions[map_task_id]],
+                        "task_id": task_id,
+                        "input_paths": [os.path.join(self.curr_job.input_directory, file) for file in partitions[i]],
                         "executable": self.curr_job.mapper_executable,
                         "output_directory": tmpdir,
                         # The output_directory in the Map Stage will always be the Manager’s temporary directory
@@ -213,17 +214,19 @@ class Manager:
                         message = json.dumps(task_message)
                         sock.sendall(message.encode('utf-8'))
 
+                    task_id+= 1
+
                 # wait until all map tasks run into completion, then start reduce job
                 while not (self.curr_job.is_all_map_tasks_completed() or self.status == STATUS_SHUTDOWN):
                     time.sleep(0.1)
                 
 
                 # check every file in this tmpdir, and for every file, assign task to the reducer
-                for reduce_task_id in range(self.curr_job.num_reducers):
-                    intermediate_files = [file.as_posix() for file in tmpdir.glob(f"maptask*-part{reduce_task_id:05d}")]
+                for i in range(self.curr_job.num_reducers):
+                    intermediate_files = [file.as_posix() for file in tmpdir.glob(f"maptask*-part{i:05d}")]
 
                     # register the task on the job
-                    self.curr_job.register_reduce_task_list(reduce_task_id)
+                    self.curr_job.register_reduce_task_list(task_id)
 
                     # wait if no workers available
                     while len(self.workers_free) == 0:
@@ -238,7 +241,7 @@ class Manager:
                     self.workers[(worker_host, worker_port)].status = STATUS_BUSY
                     task_message = {
                         "message_type": "new_reduce_task",
-                        "task_id": reduce_task_id,
+                        "task_id": task_id,
                         "input_paths": intermediate_files,
                         "executable": self.curr_job.reducer_executable,
                         "output_directory": self.curr_job.output_directory
@@ -247,6 +250,8 @@ class Manager:
                         sock.connect((worker_host, worker_port))
                         message = json.dumps(task_message)
                         sock.sendall(message.encode('utf-8'))
+
+                    task_id+= 1
                 
                 # wait until all reduce tasks run into completion
                 while not (self.curr_job.is_all_reduce_tasks_completed() or self.status == STATUS_SHUTDOWN):
