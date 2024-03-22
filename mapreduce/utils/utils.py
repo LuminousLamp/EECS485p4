@@ -19,47 +19,63 @@ class Job:
         self.num_mappers: int = num_mappers
         self.num_reducers: int = num_reducers
 
-        self.map_task_list: dict[int, dict] = {}
-        self.reduce_task_list: dict[int, dict] = {}
+        self.task_list: dict[int, dict] = {}
 
-    def register_map_task_list(self, task_id: int, input_files: list):
+    def register_task(self, task_id: int):
         task_info = {
             "status": "unfinished",
-            "input_files": input_files
         }
-        self.map_task_list[task_id] = task_info
+        assert task_id not in self.task_list
+        self.task_list[task_id] = task_info
 
-    def is_all_map_tasks_completed(self):
-        for task_id, task_info in self.map_task_list.items():
+    def is_all_tasks_completed(self):
+        for task_id, task_info in self.task_list.items():
             if task_info["status"] != "finished":
                 return False
         return True
     
-    def register_reduce_task_list(self, task_id: int):
-        task_info = {
-            "status": "unfinished",
-        }
-        self.reduce_task_list[task_id] = task_info
+    def clear_task_list(self):
+        self.task_list.clear()
 
-    def is_all_reduce_tasks_completed(self):
-        for task_id, task_info in self.reduce_task_list.items():
-            if task_info["status"] != "finished":
-                return False
-        return True
+    def mark_task_finished(self, task_id: int):
+        assert task_id in self.task_list
+        self.task_list[task_id]["status"] = "finished"
         
-
-
-class M_info:
-    def __init__(self) -> None:
-        pass
-
-
 
 class W_info:
     def __init__(self, host:str, port:int) -> None:
         self.host: str = host
         self.port: int = port
+        
+        self.missing_heartbeats: int = 0
+
         self.status: int = STATUS_READY
+        self.curr_task: dict = None
+
+    def assign_task(self, task_message: dict):
+        assert self.status == STATUS_READY, "the worker should be STATUS_READY, but it is not"
+        assert self.curr_task == None
+        self.status = STATUS_BUSY
+        self.curr_task = task_message
+
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.connect((self.host, self.port))
+            message = json.dumps(task_message)
+            sock.sendall(message.encode('utf-8'))
+
+    def clear_task(self):
+        assert self.status == STATUS_BUSY
+        assert self.curr_task != None
+        self.status = STATUS_READY
+        self.curr_task = None
+
+    def receive_hearbeat(self) -> None:
+        self.missing_heartbeats = 0
+
+    def record_heartbeat_miss(self) -> bool:
+        self.missing_heartbeats += 1
+
+        return self.missing_heartbeats > 5
 
 
 def tcp_receive_json(socket: socket.socket) -> dict:

@@ -11,6 +11,7 @@ import subprocess
 import tempfile
 import hashlib
 from io import TextIOWrapper
+import heapq
 
 
 # Configure logging
@@ -86,18 +87,17 @@ class Worker:
                 elif message_type == "register_ack":
                     self.signals["registered"] = True
                 elif message_type == "new_map_task" or message_type == "new_reduce_task":
-                    assert (self.status == STATUS_READY, 
-                        "the worker should be STATUS_READY upon taking a task, but it is not")
+                    assert self.status == STATUS_READY, "the worker should be STATUS_READY upon taking a task, but it is not"
                     self.task_id = message_dict["task_id"]
                     self.input_paths = message_dict["input_paths"]
                     self.executable = message_dict["executable"]
                     self.output_directory = message_dict["output_directory"]
                     if message_type == "new_map_task":
                         self.num_partitions = int(message_dict["num_partitions"])
-                        self.do_maptask() # TODO: can we just use the main thread?
+                        self._do_maptask() # TODO: can we just use the main thread?
                         # i.e. can we not listening to any signal during map time?
                     elif message_type == "new_reduce_task":
-                        self.do_reducetask()
+                        self._do_reducetask()
 
 
 
@@ -138,9 +138,10 @@ class Worker:
                 })
                 sock.sendall(heartbeat_message.encode('utf-8'))
                 
+                # send it every 2 seconds
                 time.sleep(2)
 
-    def do_maptask(self):
+    def _do_maptask(self):
         
         LOGGER.info(f"worker begin to do map task {self.task_id}")
         self.status = STATUS_BUSY
@@ -166,7 +167,8 @@ class Worker:
                     ) as map_process:
                         # for every output line
                         for line in map_process.stdout:
-                            key, value = line.split('\t')
+                            key, value = line.rstrip().split('\t')
+                            print(f"|{self.task_id}|", key, value)
                             hexdigest = hashlib.md5(key.encode("utf-8")).hexdigest()
                             keyhash = int(hexdigest, base=16)
                             partition_number = keyhash % self.num_partitions
@@ -199,22 +201,17 @@ class Worker:
 
         self.status = STATUS_READY
     
-    def do_reducetask(self):
-        LOGGER.info(f"worker begin to do reduce task {self.task_id}")
+    def _do_reducetask(self):
+        LOGGER.info(f"worker begin to do reduce task {self.task_id}, there are {self.input_paths} input files")
         self.status = STATUS_BUSY
 
         prefix = f"mapreduce-local-task{self.task_id:05d}-"
         with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
-            # Merge the input files into one sorted output stream
-            merged_output = os.path.join(tmpdir, f"reducetask{self.task_id:05d}-merged")
-            with open(merged_output, "w") as outfile:
-                for input_path in self.input_paths:
-                    with open(input_path) as infile:
-                        for line in infile:
-                            outfile.write(line)
+
+            input_files: list[TextIOWrapper] = [open(file) for file in self.input_paths]
 
             # Run the reduce executable on the merged input
-            output_file = os.path.join(tmpdir, f"reducetask{self.task_id:05d}-output")
+            output_file = os.path.join(tmpdir, f"part-{self.task_id:05d}")
             with open(output_file, "w") as outfile:
                 with subprocess.Popen(
                     [self.executable],
@@ -222,13 +219,23 @@ class Worker:
                     stdout=outfile,
                     text=True,
                 ) as reduce_process:
-                    with open(merged_output) as infile:
-                        for line in infile:
-                            reduce_process.stdin.write(line)
+                    for line in heapq.merge(*input_files):
+                        reduce_process.stdin.write(line)
 
             # Move the output file to the output_directory specified by the task
-            output_filename = os.path.join(self.output_directory, f"reducetask{self.task_id:05d}")
+            output_filename = os.path.join(self.output_directory, f"part-{self.task_id:05d}")
             os.rename(output_file, output_filename)
+
+        # task finished, send a TCP message to the Manager’s main socket
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.connect((self.manager_host, self.manager_port))
+            message = json.dumps({
+                "message_type": "finished",
+                "task_id": self.task_id,
+                "worker_host": self.host,
+                "worker_port": self.port
+            })
+            sock.sendall(message.encode("utf-8"))
 
         self.status = STATUS_READY
 
