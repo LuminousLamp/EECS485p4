@@ -1,3 +1,5 @@
+"""manager."""
+
 import os
 import tempfile
 import logging
@@ -12,12 +14,14 @@ import shutil
 from pathlib import Path
 
 """MapReduce framework Manager node."""
+
 # Configure logging
 LOGGER = logging.getLogger(__name__)
 
 
 class Manager:
     """Represent a MapReduce framework Manager node."""
+
     def __init__(self, host, port):
         """Construct a Manager instance and start listening for messages."""
         # Initialize Manager instance
@@ -47,7 +51,7 @@ class Manager:
             thread.join()
 
     def listen_message(self):
-        """Main TCP socket listening for messages."""
+        """Listen for messages."""
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sock.bind((self.host, self.port))
@@ -101,14 +105,17 @@ class Manager:
             self.cv_workers.notify_all()
             for worker_addr, worker in self.workers.items():
                 if worker.status != STATUS_DEAD:
-                    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                    with socket.socket(socket.AF_INET,
+                                       socket.SOCK_STREAM) as sock:
                         try:
                             sock.connect(worker_addr)
                         except ConnectionRefusedError:
                             with self.lock_workers:
                                 self._mark_worker_dead(worker_addr)
                             continue
-                        shutdown_message = json.dumps({"message_type": "shutdown"})
+                        shutdown_message = json.dumps(
+                            {"message_type": "shutdown"}
+                        )
                         sock.sendall(shutdown_message.encode("utf-8"))
         with self.lock_jobs:
             self.cv_jobs.notify_all()
@@ -124,7 +131,9 @@ class Manager:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             try:
                 sock.connect(worker_addr)
-                registar_ack_message = json.dumps({"message_type": "register_ack"})
+                registar_ack_message = json.dumps(
+                    {"message_type": "register_ack"}
+                )
                 sock.sendall(registar_ack_message.encode("utf-8"))
             except ConnectionRefusedError:
                 with self.lock_workers:
@@ -154,9 +163,10 @@ class Manager:
             self.cv_jobs.notify_all()
             self.num_jobs += 1
 
-    def _assign_task_to_worker(self, worker_addr: tuple, task_info: dict):
-        """Assign a task to a worker and send the task information to the worker."""
-        # assumption: any functions that call this function should have self.lock_workers acquired
+    def _assign_task_to_worker(self,
+                               worker_addr: tuple,
+                               task_info: dict):
+        """Assign a task."""
         assert self.lock_workers.locked()
         self.workers[worker_addr].assign_task(task_info)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -167,7 +177,10 @@ class Manager:
             except ConnectionRefusedError:
                 self._mark_worker_dead(worker_addr)
 
-    def mark_task_finished(self, task_id: int, worker_host: str, worker_port: int):
+    def mark_task_finished(self,
+                           task_id: int,
+                           worker_host: str,
+                           worker_port: int):
         """Mark a task as finished and notify the Manager."""
         with self.lock_workers:
             # mark the task as finished
@@ -196,20 +209,21 @@ class Manager:
     def runjob(self):
         """Thread: Run a job."""
         while self.status != STATUS_SHUTDOWN:
-            # The Manager runs each job to completion before starting a new job.
+            # The Manager runs each job to completion
+            # before starting a new job.
             with self.cv_jobs:
-                while not (len(self.job_queue) > 0 or self.status == STATUS_SHUTDOWN):
+                while not (len(self.job_queue) > 0
+                           or self.status == STATUS_SHUTDOWN):
                     self.cv_jobs.wait()
                 if self.status == STATUS_SHUTDOWN:
                     return
                 # start a new job
-                assert (
-                    self.status == STATUS_FREE
-                ), "the manager status should be STATUS_FREE upon executing a job"
+                assert self.status == STATUS_FREE
                 assert len(self.job_queue) > 0
                 self.status = STATUS_BUSY
                 self.curr_job: Job = self.job_queue.popleft()
-            # delete the output directory if it already exists, create the output directory
+            # delete the output directory if it already exists,
+            # create the output directory
             if os.path.exists(self.curr_job.output_directory):
                 shutil.rmtree(self.curr_job.output_directory)
             output_dir = self.curr_job.output_directory
@@ -217,11 +231,13 @@ class Manager:
             prefix = f"mapreduce-shared-job{self.curr_job.id:05d}-"
             with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
                 # -------- M A P --------#
-                # 1. Divide the input files into num_mappers partitions using round robin
+                # 1. Divide the input files into
+                # num_mappers partitions using round robin
                 input_files = sorted(os.listdir(self.curr_job.input_directory))
                 partitions = [[] for _ in range(self.curr_job.num_mappers)]
                 for task_id, input_files in enumerate(input_files):
-                    partitions[task_id % self.curr_job.num_mappers].append(input_files)
+                    partitions[task_id %
+                               self.curr_job.num_mappers].append(input_files)
                 # 2. register all tasks (num_tasks == num_mappers)
                 for task_id in range(self.curr_job.num_mappers):
                     task_info = {
@@ -233,7 +249,8 @@ class Manager:
                         ],
                         "executable": self.curr_job.mapper_executable,
                         "output_directory": tmpdir,
-                        # The output_directory in the Map Stage will always be the Manager’s temporary directory
+                        # The output_directory in the Map Stage
+                        # will always be the Manager’s temporary directory
                         "num_partitions": self.curr_job.num_reducers,
                     }
                     self.curr_job.register_task(task_id, task_info)
@@ -249,21 +266,23 @@ class Manager:
                         break
                     if self.status == STATUS_SHUTDOWN:
                         return
-                    task_info = self.curr_job.next_task()  # get the next pending task
+                    task_info = self.curr_job.next_task()
                     with self.cv_workers:
                         while not (
-                            len(self.workers_free) > 0 or self.status == STATUS_SHUTDOWN
+                            len(self.workers_free) > 0
+                            or self.status == STATUS_SHUTDOWN
                         ):  # wait if no workers available
                             self.cv_workers.wait()
                         if self.status == STATUS_SHUTDOWN:
                             return
-                        worker_addr = self.workers_free.pop(0)  # get a free worker
+                        worker_addr = self.workers_free.pop(0)
                         self._assign_task_to_worker(
                             worker_addr, task_info
                         )  # and send the worker the task
                 if self.status == STATUS_SHUTDOWN:
                     return
-                # 4. wait until all map tasks run into completion, then start reducing
+                # 4. wait until all map tasks run
+                # into completion, then start reducing
                 while not (
                     self.curr_job.is_all_tasks_completed()
                     or self.status == STATUS_SHUTDOWN
@@ -277,7 +296,8 @@ class Manager:
                     tmpdir_path = Path(tmpdir)
                     intermediate_files = [
                         file.as_posix()
-                        for file in tmpdir_path.glob(f"maptask*-part{task_id:05d}")
+                        for file in
+                        tmpdir_path.glob(f"maptask*-part{task_id:05d}")
                     ]
                     intermediate_files.sort()
                     task_info = {
@@ -300,15 +320,16 @@ class Manager:
                         break
                     if self.status == STATUS_SHUTDOWN:
                         return
-                    task_info = self.curr_job.next_task()  # get the next pending task
+                    task_info = self.curr_job.next_task()
                     with self.cv_workers:
                         while not (
-                            len(self.workers_free) > 0 or self.status == STATUS_SHUTDOWN
+                            len(self.workers_free) > 0 or
+                            self.status == STATUS_SHUTDOWN
                         ):  # wait if no workers available
                             self.cv_workers.wait()
                         if self.status == STATUS_SHUTDOWN:
                             return
-                        worker_addr = self.workers_free.pop(0)  # get a free worker
+                        worker_addr = self.workers_free.pop(0)
                         self._assign_task_to_worker(
                             worker_addr, task_info
                         )  # and send the worker the task
@@ -378,7 +399,9 @@ def main(host, port, logfile, loglevel, shared_dir):
         handler = logging.FileHandler(logfile)
     else:
         handler = logging.StreamHandler()
-    formatter = logging.Formatter(f"Manager:{port} [%(levelname)s] %(message)s")
+    formatter = logging.Formatter(
+        f"Manager:{port} [%(levelname)s] %(message)s"
+    )
     handler.setFormatter(formatter)
     root_logger = logging.getLogger()
     root_logger.addHandler(handler)

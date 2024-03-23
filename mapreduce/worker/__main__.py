@@ -1,3 +1,5 @@
+"""worker."""
+
 import os
 import logging
 import json
@@ -23,7 +25,6 @@ class Worker:
 
     def __init__(self, host, port, manager_host, manager_port):
         """Construct a Worker instance and start listening for messages."""
-
         # member variables
         self.host: str = host
         self.port: int = port
@@ -44,13 +45,13 @@ class Worker:
             thread.join()
 
     def listen_message(self):
-        """Main TCP socket listening for messages."""
-
+        """Listen for messages."""
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sock.bind((self.host, self.port))
             sock.listen()
-            # Once a Worker is ready to listen for instructions, it should send a message
+            # Once a Worker is ready to listen
+            # for instructions, it should send a message
             self._register()
             sock.settimeout(1)
 
@@ -94,7 +95,6 @@ class Worker:
 
     def _register(self):
         """Register the Worker with the Manager."""
-
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect((self.manager_host, self.manager_port))
             register_message = json.dumps(
@@ -109,7 +109,6 @@ class Worker:
 
     def shutdown(self):
         """Shutdown the Worker."""
-
         while self.status == STATUS_BUSY:
             time.sleep(0.1)
         assert self.status == STATUS_READY
@@ -117,8 +116,8 @@ class Worker:
 
     def send_heartbeat(self):
         """Send heartbeat messages to the Manager."""
-
-        while not (self.signals["registered"] or self.status == STATUS_SHUTDOWN):
+        while not (self.signals["registered"]
+                   or self.status == STATUS_SHUTDOWN):
             time.sleep(0.1)
         if self.status == STATUS_SHUTDOWN:
             return
@@ -147,10 +146,7 @@ class Worker:
         num_partitions: int,
     ):
         """Perform a map task."""
-
-        assert (
-            self.status == STATUS_READY
-        ), "the worker should be STATUS_READY upon taking a task, but it is not"
+        assert self.status == STATUS_READY
         self.status = STATUS_BUSY
 
         prefix = f"mapreduce-local-task{task_id:05d}-"
@@ -158,7 +154,8 @@ class Worker:
             # 1. generate intermediate files
             outfiles: list[TextIOWrapper] = []
             for i in range(num_partitions):
-                filename = os.path.join(tmpdir, f"maptask{task_id:05d}-part{i:05d}")
+                filename = os.path.join(tmpdir,
+                                        f"maptask{task_id:05d}-part{i:05d}")
                 outfile = open(filename, "w")
                 outfiles.append(outfile)
 
@@ -175,21 +172,27 @@ class Worker:
                         # for every output line
                         for line in map_process.stdout:
                             key, value = line.rstrip().split("\t")
-                            hexdigest = hashlib.md5(key.encode("utf-8")).hexdigest()
+                            hexdigest = hashlib.md5(
+                                key.encode("utf-8")
+                            ).hexdigest()
                             keyhash = int(hexdigest, base=16)
                             partition_number = keyhash % num_partitions
-                            outfiles[partition_number].write(f"{key}\t{value}\n")
+                            outfiles[partition_number] \
+                                .write(f"{key}\t{value}\n")
             for outfile in outfiles:
                 outfile.close()
 
             # 3. sort intermediate files
             for i in range(num_partitions):
-                filename = os.path.join(tmpdir, f"maptask{task_id:05d}-part{i:05d}")
+                filename = os.path.join(tmpdir,
+                                        f"maptask{task_id:05d}-part{i:05d}")
                 subprocess.run(["sort", "-o", filename, filename], check=True)
 
-            # 4. Move the sorted output files into the output_directory specified by the task
+            # 4. Move the sorted output files into
+            # the output_directory specified by the task
             for i in range(num_partitions):
-                filename = os.path.join(tmpdir, f"maptask{task_id:05d}-part{i:05d}")
+                filename = os.path.join(tmpdir,
+                                        f"maptask{task_id:05d}-part{i:05d}")
                 output_filename = os.path.join(
                     output_directory, f"maptask{task_id:05d}-part{i:05d}"
                 )
@@ -218,17 +221,15 @@ class Worker:
         output_directory: str,
     ):
         """Perform a reduce task."""
-
-        assert (
-            self.status == STATUS_READY
-        ), "the worker should be STATUS_READY upon taking a task, but it is not"
+        assert self.status == STATUS_READY
         self.status = STATUS_BUSY
 
         prefix = f"mapreduce-local-task{task_id:05d}-"
         with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
 
             # 1. Run the reduce executable on the merged input
-            input_files: list[TextIOWrapper] = [open(file) for file in input_paths]
+            input_files: list[TextIOWrapper] = \
+                [open(file) for file in input_paths]
             output_file = os.path.join(tmpdir, f"part-{task_id:05d}")
             with open(output_file, "w") as outfile:
                 with subprocess.Popen(
@@ -240,8 +241,11 @@ class Worker:
                     for line in heapq.merge(*input_files):
                         reduce_process.stdin.write(line)
 
-            # 2. Move the output file to the output_directory specified by the task
-            output_filename = os.path.join(output_directory, f"part-{task_id:05d}")
+            # 2. Move the output file to the
+            # output_directory specified by the task
+            output_filename = os.path.join(
+                output_directory,
+                f"part-{task_id:05d}")
             os.rename(output_file, output_filename)
 
         # 3. task finished, send a TCP message to the Manager’s main socket

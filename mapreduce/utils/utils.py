@@ -1,3 +1,5 @@
+"""utils."""
+
 import socket
 import json
 from collections import deque
@@ -10,9 +12,7 @@ STATUS_SHUTDOWN = 3
 
 
 class Job:
-    """
-    Represents a job in the MapReduce system.
-    """
+    """Represents a job in the MapReduce system."""
 
     def __init__(
         self,
@@ -25,7 +25,7 @@ class Job:
         num_reducers: int,
     ) -> None:
         """
-        Initializes a Job object.
+        Initialize a Job object.
 
         Args:
             id (int): The ID of the job.
@@ -49,7 +49,7 @@ class Job:
 
     def register_task(self, task_id: int, task_info: dict) -> None:
         """
-        Registers a task for the job.
+        Register a task for the job.
 
         Args:
             task_id (int): The ID of the task.
@@ -61,7 +61,7 @@ class Job:
 
     def next_task(self) -> tuple:
         """
-        Retrieves the next task from the task queue.
+        Retrieve the next task from the task queue.
 
         Returns:
             tuple: The task information.
@@ -72,7 +72,7 @@ class Job:
 
     def reset_task(self, task_id: int) -> None:
         """
-        Resets a task to unfinished state and adds it back to the task queue.
+        Reset a task to unfinished state and adds it back to the task queue.
 
         Args:
             task_id (int): The ID of the task.
@@ -85,7 +85,7 @@ class Job:
 
     def have_pending_job(self) -> bool:
         """
-        Checks if there are pending tasks in the task queue.
+        Check if there are pending tasks in the task queue.
 
         Returns:
             bool: True if there are pending tasks, False otherwise.
@@ -94,7 +94,7 @@ class Job:
 
     def is_all_tasks_completed(self) -> bool:
         """
-        Checks if all tasks in the job are completed.
+        Check if all tasks in the job are completed.
 
         Returns:
             bool: True if all tasks are completed, False otherwise.
@@ -107,7 +107,7 @@ class Job:
 
     def mark_task_finished(self, task_id: int):
         """
-        Marks a task as finished.
+        Mark a task as finished.
 
         Args:
             task_id (int): The ID of the task.
@@ -119,13 +119,11 @@ class Job:
 
 
 class Task:
-    """
-    Represents a task in the MapReduce system.
-    """
+    """Represent a task in the MapReduce system."""
 
     def __init__(self, task_id: int, task_info: dict) -> None:
         """
-        Initializes a Task object.
+        Initialize a Task object.
 
         Args:
             task_id (int): The ID of the task.
@@ -137,13 +135,11 @@ class Task:
 
 
 class RemoteWorker:
-    """
-    Represents a remote worker in the MapReduce system.
-    """
+    """Represent a remote worker in the MapReduce system."""
 
     def __init__(self, host: str, port: int) -> None:
         """
-        Initializes a RemoteWorker object.
+        Initialize a RemoteWorker object.
 
         Args:
             host (str): The host of the remote worker.
@@ -159,7 +155,7 @@ class RemoteWorker:
 
     def assign_task(self, task_message: dict):
         """
-        Assigns a task to the remote worker.
+        Assign a task to the remote worker.
 
         Args:
             task_message (dict): The task message to be assigned.
@@ -172,26 +168,23 @@ class RemoteWorker:
         self.curr_task = task_message
 
     def clear_task(self):
-        """
-        Clears the current task assigned to the remote worker.
-        """
+        """Clear the current task assigned to the remote worker."""
         assert self.status != STATUS_READY
         assert self.curr_task is not None
         self.status = STATUS_READY
         self.curr_task = None
 
     def receive_hearbeat(self) -> None:
-        """
-        Receives a heartbeat from the remote worker.
-        """
+        """Receive a heartbeat from the remote worker."""
         self.missing_heartbeats = 0
 
     def record_heartbeat_miss(self) -> bool:
         """
-        Records a heartbeat miss for the remote worker.
+        Record a heartbeat miss for the remote worker.
 
         Returns:
-            bool: True if the number of heartbeat misses exceeds the threshold, False otherwise.
+            bool: True if the number of heartbeat misses exceeds
+            the threshold, False otherwise.
         """
         self.missing_heartbeats += 1
 
@@ -200,7 +193,7 @@ class RemoteWorker:
 
 def tcp_receive_json(socket: socket.socket) -> dict:
     """
-    Receives a JSON message over TCP.
+    Receive a JSON message over TCP.
 
     Args:
         socket (socket.socket): The TCP socket.
@@ -233,7 +226,7 @@ def tcp_receive_json(socket: socket.socket) -> dict:
 
 def udp_receive_json(sock: socket.socket) -> dict:
     """
-    Receives a JSON message over UDP.
+    Receive a JSON message over UDP.
 
     Args:
         sock (socket.socket): The UDP socket.
