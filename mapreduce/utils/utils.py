@@ -1,8 +1,6 @@
-
 import socket
 import json
 from collections import deque
-
 
 STATUS_FREE = 0
 STATUS_READY = 0
@@ -10,9 +8,35 @@ STATUS_BUSY = 1
 STATUS_DEAD = 2
 STATUS_SHUTDOWN = 3
 
+
 class Job:
-    def __init__(self, id:int, input_directory: str, output_directory: str, mapper_executable: str, reducer_executable: str, num_mappers: int, num_reducers: int) -> None:
-        self.id:int = id
+    """
+    Represents a job in the MapReduce system.
+    """
+
+    def __init__(
+        self,
+        id: int,
+        input_directory: str,
+        output_directory: str,
+        mapper_executable: str,
+        reducer_executable: str,
+        num_mappers: int,
+        num_reducers: int,
+    ) -> None:
+        """
+        Initializes a Job object.
+
+        Args:
+            id (int): The ID of the job.
+            input_directory (str): The input directory for the job.
+            output_directory (str): The output directory for the job.
+            mapper_executable (str): The path to the mapper executable.
+            reducer_executable (str): The path to the reducer executable.
+            num_mappers (int): The number of mappers for the job.
+            num_reducers (int): The number of reducers for the job.
+        """
+        self.id: int = id
         self.input_directory: str = input_directory
         self.output_directory: str = output_directory
         self.mapper_executable: str = mapper_executable
@@ -20,21 +44,39 @@ class Job:
         self.num_mappers: int = num_mappers
         self.num_reducers: int = num_reducers
 
-        self.task_list: dict[int, Task] = {} # key: task_id, value: task_info
-        self.task_queue: deque[int] = deque() # element is task_id
+        self.task_list: dict[int, Task] = {}  # key: task_id, value: task_info
+        self.task_queue: deque[int] = deque()  # element is task_id
 
     def register_task(self, task_id: int, task_info: dict) -> None:
+        """
+        Registers a task for the job.
 
+        Args:
+            task_id (int): The ID of the task.
+            task_info (dict): The information of the task.
+        """
         assert task_id not in self.task_list
         self.task_list[task_id] = Task(task_id, task_info)
         self.task_queue.append(task_id)
-    
+
     def next_task(self) -> tuple:
+        """
+        Retrieves the next task from the task queue.
+
+        Returns:
+            tuple: The task information.
+        """
         assert len(self.task_queue) > 0
         next_task = self.task_list[self.task_queue.popleft()]
         return next_task.task_info
 
     def reset_task(self, task_id: int) -> None:
+        """
+        Resets a task to unfinished state and adds it back to the task queue.
+
+        Args:
+            task_id (int): The ID of the task.
+        """
         assert task_id in self.task_list
         assert self.task_list[task_id].task_status == "unfinished"
         assert task_id not in self.task_queue
@@ -42,10 +84,21 @@ class Job:
         self.task_queue.append(task_id)
 
     def have_pending_job(self) -> bool:
+        """
+        Checks if there are pending tasks in the task queue.
+
+        Returns:
+            bool: True if there are pending tasks, False otherwise.
+        """
         return len(self.task_queue) > 0
-    
+
     def is_all_tasks_completed(self) -> bool:
-        # print(f"there are {len(self.task_list)} tasks")
+        """
+        Checks if all tasks in the job are completed.
+
+        Returns:
+            bool: True if all tasks are completed, False otherwise.
+        """
         for task in self.task_list.values():
             if task.task_status != "finished":
                 return False
@@ -53,54 +106,108 @@ class Job:
         return True
 
     def mark_task_finished(self, task_id: int):
+        """
+        Marks a task as finished.
+
+        Args:
+            task_id (int): The ID of the task.
+        """
         assert task_id in self.task_list
         assert task_id not in self.task_queue
 
         self.task_list[task_id].task_status = "finished"
 
+
 class Task:
-    def __init__(self, task_id:int, task_info: dict) -> None:
+    """
+    Represents a task in the MapReduce system.
+    """
+
+    def __init__(self, task_id: int, task_info: dict) -> None:
+        """
+        Initializes a Task object.
+
+        Args:
+            task_id (int): The ID of the task.
+            task_info (dict): The information of the task.
+        """
         self.task_id: int = task_id
         self.task_info: dict = task_info
         self.task_status = "unfinished"
 
+
 class RemoteWorker:
-    def __init__(self, host:str, port:int) -> None:
+    """
+    Represents a remote worker in the MapReduce system.
+    """
+
+    def __init__(self, host: str, port: int) -> None:
+        """
+        Initializes a RemoteWorker object.
+
+        Args:
+            host (str): The host of the remote worker.
+            port (int): The port of the remote worker.
+        """
         self.host: str = host
         self.port: int = port
-        
+
         self.missing_heartbeats: int = 0
 
         self.status: int = STATUS_READY
         self.curr_task: dict = None
 
     def assign_task(self, task_message: dict):
-        assert self.status == STATUS_READY, "the worker should be STATUS_READY, but it is not"
-        assert self.curr_task == None
+        """
+        Assigns a task to the remote worker.
+
+        Args:
+            task_message (dict): The task message to be assigned.
+        """
+        assert (
+            self.status == STATUS_READY
+        ), "the worker should be STATUS_READY, but it is not"
+        assert self.curr_task is None
         self.status = STATUS_BUSY
         self.curr_task = task_message
 
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-            sock.connect((self.host, self.port))
-            message = json.dumps(task_message)
-            sock.sendall(message.encode('utf-8'))
-
     def clear_task(self):
-        assert self.status == STATUS_BUSY
-        assert self.curr_task != None
+        """
+        Clears the current task assigned to the remote worker.
+        """
+        assert self.status != STATUS_READY
+        assert self.curr_task is not None
         self.status = STATUS_READY
         self.curr_task = None
 
     def receive_hearbeat(self) -> None:
+        """
+        Receives a heartbeat from the remote worker.
+        """
         self.missing_heartbeats = 0
 
     def record_heartbeat_miss(self) -> bool:
+        """
+        Records a heartbeat miss for the remote worker.
+
+        Returns:
+            bool: True if the number of heartbeat misses exceeds the threshold, False otherwise.
+        """
         self.missing_heartbeats += 1
 
         return self.missing_heartbeats > 5
 
 
 def tcp_receive_json(socket: socket.socket) -> dict:
+    """
+    Receives a JSON message over TCP.
+
+    Args:
+        socket (socket.socket): The TCP socket.
+
+    Returns:
+        dict: The received JSON message.
+    """
     socket.settimeout(1)
     with socket:
         message_chunks = []
@@ -112,8 +219,8 @@ def tcp_receive_json(socket: socket.socket) -> dict:
             if not data:
                 break
             message_chunks.append(data)
-    
-    message_bytes = b''.join(message_chunks)
+
+    message_bytes = b"".join(message_chunks)
     message_str = message_bytes.decode("utf-8")
 
     try:
@@ -123,12 +230,22 @@ def tcp_receive_json(socket: socket.socket) -> dict:
 
     return message_dict
 
+
 def udp_receive_json(sock: socket.socket) -> dict:
+    """
+    Receives a JSON message over UDP.
+
+    Args:
+        sock (socket.socket): The UDP socket.
+
+    Returns:
+        dict: The received JSON message.
+    """
     try:
         message_bytes = sock.recv(4096)
     except socket.timeout:
         raise socket.timeout
-    
+
     message_str = message_bytes.decode("utf-8")
     try:
         message_dict = json.loads(message_str)

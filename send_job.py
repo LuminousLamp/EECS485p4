@@ -6,7 +6,7 @@ import json
 def main():
     """Test TCP Socket Client."""
     # create an INET, STREAMing socket, this is TCP
-    for i in range(1):
+    for i in range(10):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
 
             # connect to the manager

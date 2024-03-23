@@ -1,5 +1,3 @@
-"""MapReduce framework Worker node."""
-
 import os
 import logging
 import json
@@ -14,6 +12,7 @@ import hashlib
 from io import TextIOWrapper
 import heapq
 
+"""MapReduce framework Worker node."""
 
 # Configure logging
 LOGGER = logging.getLogger(__name__)
@@ -25,8 +24,6 @@ class Worker:
     def __init__(self, host, port, manager_host, manager_port):
         """Construct a Worker instance and start listening for messages."""
 
-        LOGGER.info("Worker init: host=%s port=%s pwd=%s", host, port, os.getcwd())
-
         # member variables
         self.host: str = host
         self.port: int = port
@@ -34,55 +31,47 @@ class Worker:
         self.manager_port: int = manager_port
 
         self.status: int = STATUS_READY
-
-        # self.task_id: int = None
-        # self.input_paths: list[str] = None
-        # self.executable: str = None
-        # self.output_directory: str = None
-        # self.num_partitions: int = None
-
         self.signals = {"registered": False}
 
         # start
-        thread_listenmessage = threading.Thread(target=self.listen_message)
-        thread_sendheartbeat = threading.Thread(target=self.send_heartbeat)
-        thread_listenmessage.start()
-        thread_sendheartbeat.start()
-        thread_listenmessage.join()
-        thread_sendheartbeat.join()
+        threads = [
+            threading.Thread(target=self.listen_message),
+            threading.Thread(target=self.send_heartbeat),
+        ]
+        for thread in threads:
+            thread.start()
+        for thread in threads:
+            thread.join()
 
     def listen_message(self):
-        """main TCP socket listening messages"""
+        """Main TCP socket listening for messages."""
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sock.bind((self.host, self.port))
-            LOGGER.info("worker setup TCP")
             sock.listen()
             # Once a Worker is ready to listen for instructions, it should send a message
             self._register()
             sock.settimeout(1)
 
-            while True:
+            while self.status != STATUS_SHUTDOWN:
+                # try connection
                 try:
                     clientsocket, address = sock.accept()
                 except socket.timeout:
                     continue
 
+                # get message dict
                 try:
                     message_dict = tcp_receive_json(clientsocket)
-                except:
-                    LOGGER.error("message_dict not succeffsulyly received")
-                    continue
-
-                try:
                     message_type = message_dict["message_type"]
-                except KeyError:
+                except Exception:
                     continue
 
-                LOGGER.info(f"worker receive massage, type {message_type}")
+                # execute according function
                 if message_type == "shutdown":
-                    self._shutdown(sock)
+                    self.shutdown()
+                    break
                 elif message_type == "register_ack":
                     self.signals["registered"] = True
                 elif message_type == "new_map_task":
@@ -104,7 +93,8 @@ class Worker:
                     continue
 
     def _register(self):
-        LOGGER.info("worker register")
+        """Register the Worker with the Manager."""
+
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect((self.manager_host, self.manager_port))
             register_message = json.dumps(
@@ -117,21 +107,24 @@ class Worker:
 
             sock.sendall(register_message.encode("utf-8"))
 
-    def _shutdown(self, main_sock: socket):
-        LOGGER.info("worker shutdown")
+    def shutdown(self):
+        """Shutdown the Worker."""
+
         while self.status == STATUS_BUSY:
             time.sleep(0.1)
+        assert self.status == STATUS_READY
         self.status = STATUS_SHUTDOWN
-        main_sock.close()
-        os._exit(0)
 
     def send_heartbeat(self):
-        while not self.signals["registered"]:
-            time.sleep(0.1)
+        """Send heartbeat messages to the Manager."""
 
-        LOGGER.info("worker starts to send heartbeat")
+        while not (self.signals["registered"] or self.status == STATUS_SHUTDOWN):
+            time.sleep(0.1)
+        if self.status == STATUS_SHUTDOWN:
+            return
+
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
-            while True:
+            while self.status != STATUS_SHUTDOWN:
                 sock.connect((self.manager_host, self.manager_port))
                 heartbeat_message = json.dumps(
                     {
@@ -145,25 +138,31 @@ class Worker:
                 # send it every 2 seconds
                 time.sleep(2)
 
-    def _do_maptask(self, task_id: int, input_paths: list[str], executable: str, output_directory: str, num_partitions: int):
+    def _do_maptask(
+        self,
+        task_id: int,
+        input_paths: list[str],
+        executable: str,
+        output_directory: str,
+        num_partitions: int,
+    ):
+        """Perform a map task."""
+
         assert (
             self.status == STATUS_READY
         ), "the worker should be STATUS_READY upon taking a task, but it is not"
-        LOGGER.info(f"worker begin to do map task {task_id}")
         self.status = STATUS_BUSY
 
         prefix = f"mapreduce-local-task{task_id:05d}-"
         with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
-            # generate intermediate files
+            # 1. generate intermediate files
             outfiles: list[TextIOWrapper] = []
             for i in range(num_partitions):
-                filename = os.path.join(
-                    tmpdir, f"maptask{task_id:05d}-part{i:05d}"
-                )
+                filename = os.path.join(tmpdir, f"maptask{task_id:05d}-part{i:05d}")
                 outfile = open(filename, "w")
                 outfiles.append(outfile)
 
-            # Run the map executable on all the input files
+            # 2. Run the map executable on all the input files
             # for every input file
             for input_path in input_paths:
                 with open(input_path) as infile:
@@ -183,25 +182,20 @@ class Worker:
             for outfile in outfiles:
                 outfile.close()
 
-            # sort intermediate files
+            # 3. sort intermediate files
             for i in range(num_partitions):
-                filename = os.path.join(
-                    tmpdir, f"maptask{task_id:05d}-part{i:05d}"
-                )
-                LOGGER.info(f"worker is going to sort the file {filename}")
+                filename = os.path.join(tmpdir, f"maptask{task_id:05d}-part{i:05d}")
                 subprocess.run(["sort", "-o", filename, filename], check=True)
 
-            # Move the sorted output files into the output_directory specified by the task
+            # 4. Move the sorted output files into the output_directory specified by the task
             for i in range(num_partitions):
-                filename = os.path.join(
-                    tmpdir, f"maptask{task_id:05d}-part{i:05d}"
-                )
+                filename = os.path.join(tmpdir, f"maptask{task_id:05d}-part{i:05d}")
                 output_filename = os.path.join(
                     output_directory, f"maptask{task_id:05d}-part{i:05d}"
                 )
                 os.rename(filename, output_filename)
 
-        # task finished, send a TCP message to the Manager’s main socket
+        # 5. task finished, send a TCP message to the Manager’s main socket
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect((self.manager_host, self.manager_port))
             message = json.dumps(
@@ -216,21 +210,25 @@ class Worker:
 
         self.status = STATUS_READY
 
-    def _do_reducetask(self, task_id: int, input_paths: list[str], executable: str, output_directory: str):
+    def _do_reducetask(
+        self,
+        task_id: int,
+        input_paths: list[str],
+        executable: str,
+        output_directory: str,
+    ):
+        """Perform a reduce task."""
+
         assert (
             self.status == STATUS_READY
         ), "the worker should be STATUS_READY upon taking a task, but it is not"
-        LOGGER.info(
-            f"worker begin to do reduce task {task_id}, there are {input_paths} input files"
-        )
         self.status = STATUS_BUSY
 
         prefix = f"mapreduce-local-task{task_id:05d}-"
         with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
 
+            # 1. Run the reduce executable on the merged input
             input_files: list[TextIOWrapper] = [open(file) for file in input_paths]
-
-            # Run the reduce executable on the merged input
             output_file = os.path.join(tmpdir, f"part-{task_id:05d}")
             with open(output_file, "w") as outfile:
                 with subprocess.Popen(
@@ -242,13 +240,11 @@ class Worker:
                     for line in heapq.merge(*input_files):
                         reduce_process.stdin.write(line)
 
-            # Move the output file to the output_directory specified by the task
-            output_filename = os.path.join(
-                output_directory, f"part-{task_id:05d}"
-            )
+            # 2. Move the output file to the output_directory specified by the task
+            output_filename = os.path.join(output_directory, f"part-{task_id:05d}")
             os.rename(output_file, output_filename)
 
-        # task finished, send a TCP message to the Manager’s main socket
+        # 3. task finished, send a TCP message to the Manager’s main socket
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect((self.manager_host, self.manager_port))
             message = json.dumps(

@@ -5,45 +5,61 @@ Worker:6002 [INFO] worker receive massage, type register_ack
 Worker:6002 [INFO] worker starts to send heartbeat
 Worker:6002 [INFO] worker receive massage, type new_map_task
 Worker:6002 [INFO] worker begin to do map task 0
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-ug4axscb/maptask00000-part00000
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-ug4axscb/maptask00000-part00001
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-e0283zr9/maptask00000-part00000
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-e0283zr9/maptask00000-part00001
 Worker:6002 [INFO] worker receive massage, type new_reduce_task
-Worker:6002 [INFO] worker begin to do reduce task 0, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00000-iwqj5rzy/maptask00001-part00000', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00000-iwqj5rzy/maptask00000-part00000'] input files
-Worker:6002 [INFO] worker receive massage, type new_map_task
-Worker:6002 [INFO] worker begin to do map task 0
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-64957ei9/maptask00000-part00000
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-64957ei9/maptask00000-part00001
-Worker:6002 [INFO] worker receive massage, type new_reduce_task
-Worker:6002 [INFO] worker begin to do reduce task 0, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00001-eiorzw06/maptask00001-part00000', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00001-eiorzw06/maptask00000-part00000'] input files
-Worker:6002 [INFO] worker receive massage, type new_map_task
-Worker:6002 [INFO] worker begin to do map task 0
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-lskf2n4b/maptask00000-part00000
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-lskf2n4b/maptask00000-part00001
-Worker:6002 [INFO] worker receive massage, type new_reduce_task
-Worker:6002 [INFO] worker begin to do reduce task 1, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00002-cdv4oozl/maptask00001-part00001', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00002-cdv4oozl/maptask00000-part00001'] input files
-Worker:6002 [INFO] worker receive massage, type new_map_task
-Worker:6002 [INFO] worker begin to do map task 0
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-xokmt10v/maptask00000-part00000
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-xokmt10v/maptask00000-part00001
-Worker:6002 [INFO] worker receive massage, type new_reduce_task
-Worker:6002 [INFO] worker begin to do reduce task 0, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00003-3m6o3jhv/maptask00001-part00000', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00003-3m6o3jhv/maptask00000-part00000'] input files
-Worker:6002 [INFO] worker receive massage, type new_map_task
-Worker:6002 [INFO] worker begin to do map task 0
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-jgym30f8/maptask00000-part00000
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-jgym30f8/maptask00000-part00001
-Worker:6002 [INFO] worker receive massage, type new_reduce_task
-Worker:6002 [INFO] worker begin to do reduce task 0, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00004-uqkt5osx/maptask00001-part00000', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00004-uqkt5osx/maptask00000-part00000'] input files
+Worker:6002 [INFO] worker begin to do reduce task 1, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00000-68qqkpw_/maptask00001-part00001', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00000-68qqkpw_/maptask00000-part00001'] input files
 Worker:6002 [INFO] worker receive massage, type new_map_task
 Worker:6002 [INFO] worker begin to do map task 1
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-avmyp85y/maptask00001-part00000
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-avmyp85y/maptask00001-part00001
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-5w4z3yb_/maptask00001-part00000
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-5w4z3yb_/maptask00001-part00001
 Worker:6002 [INFO] worker receive massage, type new_reduce_task
-Worker:6002 [INFO] worker begin to do reduce task 1, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00005-trvw8nbp/maptask00001-part00001', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00005-trvw8nbp/maptask00000-part00001'] input files
+Worker:6002 [INFO] worker begin to do reduce task 0, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00001-q93mfssq/maptask00001-part00000', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00001-q93mfssq/maptask00000-part00000'] input files
 Worker:6002 [INFO] worker receive massage, type new_map_task
 Worker:6002 [INFO] worker begin to do map task 1
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-t1w5nlca/maptask00001-part00000
-Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-t1w5nlca/maptask00001-part00001
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-na1ivcqb/maptask00001-part00000
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-na1ivcqb/maptask00001-part00001
 Worker:6002 [INFO] worker receive massage, type new_reduce_task
-Worker:6002 [INFO] worker begin to do reduce task 1, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00006-shom8fw5/maptask00001-part00001', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00006-shom8fw5/maptask00000-part00001'] input files
-Worker:6002 [INFO] worker receive massage, type shutdown
-Worker:6002 [INFO] worker shutdown
+Worker:6002 [INFO] worker begin to do reduce task 0, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00002-l7ixs5zh/maptask00001-part00000', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00002-l7ixs5zh/maptask00000-part00000'] input files
+Worker:6002 [INFO] worker receive massage, type new_map_task
+Worker:6002 [INFO] worker begin to do map task 1
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-95y1u89b/maptask00001-part00000
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-95y1u89b/maptask00001-part00001
+Worker:6002 [INFO] worker receive massage, type new_reduce_task
+Worker:6002 [INFO] worker begin to do reduce task 0, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00003-jryuxe1p/maptask00001-part00000', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00003-jryuxe1p/maptask00000-part00000'] input files
+Worker:6002 [INFO] worker receive massage, type new_map_task
+Worker:6002 [INFO] worker begin to do map task 0
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-iv7obvj6/maptask00000-part00000
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-iv7obvj6/maptask00000-part00001
+Worker:6002 [INFO] worker receive massage, type new_reduce_task
+Worker:6002 [INFO] worker begin to do reduce task 1, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00004-4l_4on0h/maptask00001-part00001', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00004-4l_4on0h/maptask00000-part00001'] input files
+Worker:6002 [INFO] worker receive massage, type new_map_task
+Worker:6002 [INFO] worker begin to do map task 1
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-33cdtwi1/maptask00001-part00000
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-33cdtwi1/maptask00001-part00001
+Worker:6002 [INFO] worker receive massage, type new_reduce_task
+Worker:6002 [INFO] worker begin to do reduce task 1, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00005-t02r789j/maptask00001-part00001', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00005-t02r789j/maptask00000-part00001'] input files
+Worker:6002 [INFO] worker receive massage, type new_map_task
+Worker:6002 [INFO] worker begin to do map task 1
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-v7w11tlz/maptask00001-part00000
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-v7w11tlz/maptask00001-part00001
+Worker:6002 [INFO] worker receive massage, type new_reduce_task
+Worker:6002 [INFO] worker begin to do reduce task 0, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00006-6u7vt6n2/maptask00001-part00000', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00006-6u7vt6n2/maptask00000-part00000'] input files
+Worker:6002 [INFO] worker receive massage, type new_map_task
+Worker:6002 [INFO] worker begin to do map task 1
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-y5s9bmgw/maptask00001-part00000
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-y5s9bmgw/maptask00001-part00001
+Worker:6002 [INFO] worker receive massage, type new_reduce_task
+Worker:6002 [INFO] worker begin to do reduce task 1, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00007-7ksoetve/maptask00001-part00001', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00007-7ksoetve/maptask00000-part00001'] input files
+Worker:6002 [INFO] worker receive massage, type new_map_task
+Worker:6002 [INFO] worker begin to do map task 0
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-9qqo2y3p/maptask00000-part00000
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00000-9qqo2y3p/maptask00000-part00001
+Worker:6002 [INFO] worker receive massage, type new_reduce_task
+Worker:6002 [INFO] worker begin to do reduce task 1, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00008-vxlg72uc/maptask00001-part00001', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00008-vxlg72uc/maptask00000-part00001'] input files
+Worker:6002 [INFO] worker receive massage, type new_map_task
+Worker:6002 [INFO] worker begin to do map task 1
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-at30dcmb/maptask00001-part00000
+Worker:6002 [INFO] worker is going to sort the file /var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-local-task00001-at30dcmb/maptask00001-part00001
+Worker:6002 [INFO] worker receive massage, type new_reduce_task
+Worker:6002 [INFO] worker begin to do reduce task 0, there are ['/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00009-k20l2vnp/maptask00001-part00000', '/var/folders/fj/_yv_cx216ng57tdvll1385y40000gn/T/mapreduce-shared-job00009-k20l2vnp/maptask00000-part00000'] input files

@@ -19,6 +19,9 @@ dependencies = [
     "pytest-mock",
 ]
 
+[tool.black]
+line-length = 78
+
 [project.scripts]
 mapreduce-manager = "mapreduce.manager.__main__:main"
 mapreduce-worker = "mapreduce.worker.__main__:main"
@@ -37,3 +40,4 @@ signature-mutators = ["command", "option", "argument"]
 max-args = 6
 # Minimum number of public methods for a class (see R0903).
 min-public-methods = 1
+
